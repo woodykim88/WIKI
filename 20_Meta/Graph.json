@@ -1,4 +1,9 @@
 {
-  "nodes": [],
-  "links": []
+  "nodes": [
+    { "id": "10_Wiki/🛠️ Projects/SaladLab", "group": 1 },
+    { "id": "부정_VoC_기능_가이드", "group": 2 }
+  ],
+  "links": [
+    { "source": "부정_VoC_기능_가이드", "target": "10_Wiki/🛠️ Projects/SaladLab", "value": 1 }
+  ]
 }
