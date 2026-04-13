@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clippings/혜택 관리(포인트 관련).md",
+                "file": "Clippings/리뷰 무료버전 ver 1.0.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "혜택 관리(포인트 관련)"
+              "title": "리뷰 무료버전 ver 1.0"
             }
           }
         ]
@@ -183,8 +183,26 @@
   },
   "active": "bdef1620e3d4ac0d",
   "lastOpenFiles": [
-    "Clippings/Where teams and agents work together 3.md",
+    "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md",
+    "10_Wiki/BRD/SaladLab",
+    "Clippings/코어 - 웹훅 저장 병목 해소.md",
+    "Clippings/리뷰 무료버전 ver 1.0.md",
+    "10_Wiki/Leader_Meeting_Weekly/2026-04-13_리더십_미팅.md",
+    "10_Wiki/Leader_Meeting_Weekly",
+    "10_Wiki/무제 폴더",
+    "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
+    "10_Wiki/PRD/SaladLab",
+    "PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
+    "PRD/SaladLab",
+    "PRD",
+    "10_Wiki/PRD",
+    "10_Wiki/FSD",
+    "10_Wiki/BRD",
+    "10_Wiki/🚀 FSD",
     "Clippings/혜택 관리(포인트 관련).md",
+    "Clippings/[AI] 리뷰 데이터 모델 및 상태 관리.md",
+    "Clippings/리뷰 데이터 모델 및 상태 관리.md",
+    "Clippings/Where teams and agents work together 3.md",
     "Clippings/코어 구독 시스템 정책.md",
     "Clippings/리뷰 위젯 별 상세 정책.md",
     "Clippings/리뷰위젯.md",
@@ -193,10 +211,8 @@
     "10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md",
     "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md",
     "10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md",
-    "saladlab_graph.html",
     "10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md",
     "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md",
-    "Skill_LLMWIKI_강화학습기반구조화 로직.md",
-    "Clippings"
+    "Skill_LLMWIKI_강화학습기반구조화 로직.md"
   ]
 }

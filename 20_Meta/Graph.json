@@ -1,6 +1,31 @@
 {
   "nodes": [
     {
+      "id": "2026-04-13_리더십_미팅",
+      "group": 6,
+      "path": "10_Wiki/Leader_Meeting_Weekly/2026-04-13_리더십_미팅.md"
+    },
+    {
+      "id": "Leader_Meeting_Weekly",
+      "group": 1
+    },
+    {
+      "id": "🥗 리더십 미팅 @2026-04-13 — 핵심 인사이트",
+      "group": 1
+    },
+    {
+      "id": "🥗 프로젝트 타운홀 @2026-04",
+      "group": 1
+    },
+    {
+      "id": "부정_VoC_기능_가이드",
+      "group": 1
+    },
+    {
+      "id": "코어 - 웹훅 저장 병목 해소",
+      "group": 1
+    },
+    {
       "id": "알파리뷰 포인트 지급 정책",
       "group": 2,
       "path": "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"
@@ -85,14 +110,48 @@
     {
       "id": "코어 - 웹훅 저장 병목 해소",
       "group": 3,
-      "path": "PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md"
+      "path": "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md"
     },
     {
       "id": "코어 - 웹훅 저장 병목 해소.md",
       "group": 1
+    },
+    {
+      "id": "리뷰 무료버전 ver 1.0",
+      "group": 5,
+      "path": "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md"
+    },
+    {
+      "id": "리뷰 무료버전 ver 1.0.md",
+      "group": 1
     }
   ],
   "links": [
+    {
+      "source": "2026-04-13_리더십_미팅",
+      "target": "Leader_Meeting_Weekly",
+      "value": 1
+    },
+    {
+      "source": "2026-04-13_리더십_미팅",
+      "target": "🥗 리더십 미팅 @2026-04-13 — 핵심 인사이트",
+      "value": 1
+    },
+    {
+      "source": "2026-04-13_리더십_미팅",
+      "target": "🥗 프로젝트 타운홀 @2026-04",
+      "value": 1
+    },
+    {
+      "source": "2026-04-13_리더십_미팅",
+      "target": "부정_VoC_기능_가이드",
+      "value": 1
+    },
+    {
+      "source": "2026-04-13_리더십_미팅",
+      "target": "코어 - 웹훅 저장 병목 해소",
+      "value": 1
+    },
     {
       "source": "알파리뷰 포인트 지급 정책",
       "target": "SaladLab",
@@ -266,6 +325,26 @@
     {
       "source": "코어 - 웹훅 저장 병목 해소",
       "target": "코어 - 웹훅 저장 병목 해소.md",
+      "value": 1
+    },
+    {
+      "source": "리뷰 무료버전 ver 1.0",
+      "target": "SaladLab",
+      "value": 1
+    },
+    {
+      "source": "리뷰 무료버전 ver 1.0",
+      "target": "알파리뷰 위젯 정책",
+      "value": 1
+    },
+    {
+      "source": "리뷰 무료버전 ver 1.0",
+      "target": "알파리뷰 포인트 지급 정책",
+      "value": 1
+    },
+    {
+      "source": "리뷰 무료버전 ver 1.0",
+      "target": "리뷰 무료버전 ver 1.0.md",
       "value": 1
     }
   ]
