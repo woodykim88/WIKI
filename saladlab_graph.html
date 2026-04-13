@@ -27,74 +27,49 @@
         <p>Interactive Graphify-style Visualization</p>
         
         <div class="legend">
-            <div><div class="dot" style="background:#03a9f4;"></div> Core Policy (핵심 정책)</div>
-            <div><div class="dot" style="background:#4caf50;"></div> Extension (UI 및 외부연동)</div>
-            <div style="margin-top:10px; font-size:12px; color:#777;">💡 마우스 스크롤 줌 & 드래그를 지원합니다.</div>
+            <div><div class="dot" style="background:#424242;"></div> Parent Node / Tag</div>
+            <div><div class="dot" style="background:#03a9f4;"></div> Wiki Info</div>
+            <div><div class="dot" style="background:#4caf50;"></div> PRD</div>
+            <div><div class="dot" style="background:#9c27b0;"></div> FSD</div>
+            <div><div class="dot" style="background:#ff9800;"></div> BRD</div>
+            <div><div class="dot" style="background:#e91e63;"></div> Leadership</div>
         </div>
     </div>
     
     <div id="mynetwork"></div>
 
     <script type="text/javascript">
-        // 노드 정의
-        var nodes = new vis.DataSet([
-            { id: 1, label: "📁 SaladLab (부모 허브)", group: "parent", shape: "box", font: {size: 20, color: "#ffffff"} },
-            { id: 2, label: "[AI] 리뷰 데이터 모델 및 상태 관리", group: "core", shape: "dot", size: 22 },
-            { id: 3, label: "리뷰 종류 정리", group: "core", shape: "dot", size: 22 },
-            { id: 4, label: "알파리뷰 포인트 지급 정책", group: "core", shape: "dot", size: 22 },
-            { id: 5, label: "알파리뷰 위젯 정책", group: "secondary", shape: "dot", size: 16 },
-            { id: 6, label: "부정 VoC 가이드", group: "secondary", shape: "dot", size: 16 },
-            { id: 7, label: "알파카 AI", group: "external", shape: "text", font: { size: 14 } },
-            { id: 8, label: "VoC 텍스트 분석", group: "external", shape: "text", font: { size: 14 } }
-        ]);
-
-        // 관계(간선) 정의
-        var edges = new vis.DataSet([
-            // 부모 상속 관계 (점선)
-            { from: 2, to: 1, color: {color: "#555"}, dashes: [5, 5] },
-            { from: 3, to: 1, color: {color: "#555"}, dashes: [5, 5] },
-            { from: 4, to: 1, color: {color: "#555"}, dashes: [5, 5] },
-            { from: 5, to: 1, color: {color: "#555"}, dashes: [5, 5] },
-            { from: 6, to: 1, color: {color: "#555"}, dashes: [5, 5] },
-            
-            // 핵심 문서 상호참조 관계 (굵은 실선)
-            { from: 2, to: 4, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
-            { from: 2, to: 3, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
-            { from: 3, to: 4, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
-            
-            // 파생 문서 연결
-            { from: 4, to: 5, title: "Related", color: {color: "#4caf50", opacity: 0.6}, width: 2 },
-            
-            // 외부 태그
-            { from: 6, to: 7, arrows: "to", color: {color: "#ff9800", opacity: 0.5}, dashes: true },
-            { from: 6, to: 8, arrows: "to", color: {color: "#ff9800", opacity: 0.5}, dashes: true }
-        ]);
+        var nodes = new vis.DataSet([{"id": "2026-04-13_리더십_미팅", "label": "2026-04-13_리더십_미팅", "group": "leader", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "Leader_Meeting_Weekly", "label": "Leader_Meeting_Weekly", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "🥗 리더십 미팅 @2026-04-13 — 핵심 인사이트", "label": "🥗 리더십 미팅 @2026-04-13 — 핵심 인사이트", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "🥗 프로젝트 타운홀 @2026-04", "label": "🥗 프로젝트 타운홀 @2026-04", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "부정_VoC_기능_가이드", "label": "부정_VoC_기능_가이드", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "코어 - 웹훅 저장 병목 해소", "label": "코어 - 웹훅 저장 병목 해소", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "알파리뷰 포인트 지급 정책", "label": "알파리뷰 포인트 지급 정책", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "SaladLab", "label": "SaladLab", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "리뷰 종류 정리", "label": "리뷰 종류 정리", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "알파리뷰 위젯 정책", "label": "알파리뷰 위젯 정책", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "[AI] 리뷰 데이터 모델 및 상태 관리", "label": "[AI] 리뷰 데이터 모델 및 상태 관리", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "Where teams and agents work together.md", "label": "Where teams and agents work together.md", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "[AI] 리뷰 데이터 모델 및 상태 관리", "label": "[AI] 리뷰 데이터 모델 및 상태 관리", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "Where teams and agents work together 3.md", "label": "Where teams and agents work together 3.md", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "부정_VoC_기능_가이드", "label": "부정_VoC_기능_가이드", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "부정 VoC 및 리뷰 분석 가이드", "label": "부정 VoC 및 리뷰 분석 가이드", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "SaladLab_VoC_Guide", "label": "SaladLab_VoC_Guide", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "알파리뷰 위젯 정책", "label": "알파리뷰 위젯 정책", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "알파솔루션 구독 및 과금 정책", "label": "알파솔루션 구독 및 과금 정책", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "리뷰위젯", "label": "리뷰위젯", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "리뷰 위젯 별 상세 정책", "label": "리뷰 위젯 별 상세 정책", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "알파솔루션 구독 및 과금 정책", "label": "알파솔루션 구독 및 과금 정책", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "코어 구독 시스템 정책", "label": "코어 구독 시스템 정책", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "리뷰 종류 정리", "label": "리뷰 종류 정리", "group": "wiki", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "리뷰 종류 정리.md", "label": "리뷰 종류 정리.md", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "코어 - 웹훅 저장 병목 해소", "label": "코어 - 웹훅 저장 병목 해소", "group": "prd", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "코어 - 웹훅 저장 병목 해소.md", "label": "코어 - 웹훅 저장 병목 해소.md", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}, {"id": "리뷰 무료버전 ver 1.0", "label": "리뷰 무료버전 ver 1.0", "group": "brd", "shape": "dot", "size": 18, "font": {"size": 14, "color": "#eeeeee"}}, {"id": "리뷰 무료버전 ver 1.0.md", "label": "리뷰 무료버전 ver 1.0.md", "group": "parent", "shape": "box", "size": 20, "font": {"size": 20, "color": "#ffffff"}}]);
+        var edges = new vis.DataSet([{"from": "2026-04-13_리더십_미팅", "to": "Leader_Meeting_Weekly", "color": {"opacity": 0.6}, "width": 2}, {"from": "2026-04-13_리더십_미팅", "to": "🥗 리더십 미팅 @2026-04-13 — 핵심 인사이트", "color": {"opacity": 0.6}, "width": 2}, {"from": "2026-04-13_리더십_미팅", "to": "🥗 프로젝트 타운홀 @2026-04", "color": {"opacity": 0.6}, "width": 2}, {"from": "2026-04-13_리더십_미팅", "to": "부정_VoC_기능_가이드", "color": {"opacity": 0.6}, "width": 2}, {"from": "2026-04-13_리더십_미팅", "to": "코어 - 웹훅 저장 병목 해소", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 포인트 지급 정책", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 포인트 지급 정책", "to": "리뷰 종류 정리", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 포인트 지급 정책", "to": "알파리뷰 위젯 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 포인트 지급 정책", "to": "[AI] 리뷰 데이터 모델 및 상태 관리", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 포인트 지급 정책", "to": "Where teams and agents work together.md", "color": {"opacity": 0.6}, "width": 2}, {"from": "[AI] 리뷰 데이터 모델 및 상태 관리", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "[AI] 리뷰 데이터 모델 및 상태 관리", "to": "알파리뷰 포인트 지급 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "[AI] 리뷰 데이터 모델 및 상태 관리", "to": "리뷰 종류 정리", "color": {"opacity": 0.6}, "width": 2}, {"from": "[AI] 리뷰 데이터 모델 및 상태 관리", "to": "알파리뷰 위젯 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "[AI] 리뷰 데이터 모델 및 상태 관리", "to": "Where teams and agents work together 3.md", "color": {"opacity": 0.6}, "width": 2}, {"from": "부정_VoC_기능_가이드", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "부정_VoC_기능_가이드", "to": "부정 VoC 및 리뷰 분석 가이드", "color": {"opacity": 0.6}, "width": 2}, {"from": "부정_VoC_기능_가이드", "to": "[AI] 리뷰 데이터 모델 및 상태 관리", "color": {"opacity": 0.6}, "width": 2}, {"from": "부정_VoC_기능_가이드", "to": "리뷰 종류 정리", "color": {"opacity": 0.6}, "width": 2}, {"from": "부정_VoC_기능_가이드", "to": "SaladLab_VoC_Guide", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "알파리뷰 포인트 지급 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "알파솔루션 구독 및 과금 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "리뷰 종류 정리", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "리뷰위젯", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파리뷰 위젯 정책", "to": "리뷰 위젯 별 상세 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "알파리뷰 포인트 지급 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "알파리뷰 위젯 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "[AI] 리뷰 데이터 모델 및 상태 관리", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "리뷰 종류 정리", "color": {"opacity": 0.6}, "width": 2}, {"from": "알파솔루션 구독 및 과금 정책", "to": "코어 구독 시스템 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 종류 정리", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 종류 정리", "to": "알파리뷰 포인트 지급 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 종류 정리", "to": "[AI] 리뷰 데이터 모델 및 상태 관리", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 종류 정리", "to": "알파솔루션 구독 및 과금 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 종류 정리", "to": "리뷰 종류 정리.md", "color": {"opacity": 0.6}, "width": 2}, {"from": "코어 - 웹훅 저장 병목 해소", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "코어 - 웹훅 저장 병목 해소", "to": "알파솔루션 구독 및 과금 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "코어 - 웹훅 저장 병목 해소", "to": "코어 - 웹훅 저장 병목 해소.md", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 무료버전 ver 1.0", "to": "SaladLab", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 무료버전 ver 1.0", "to": "알파리뷰 위젯 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 무료버전 ver 1.0", "to": "알파리뷰 포인트 지급 정책", "color": {"opacity": 0.6}, "width": 2}, {"from": "리뷰 무료버전 ver 1.0", "to": "리뷰 무료버전 ver 1.0.md", "color": {"opacity": 0.6}, "width": 2}]);
 
         var container = document.getElementById("mynetwork");
         var data = { nodes: nodes, edges: edges };
         
         var options = {
             nodes: {
-                font: { color: "#eeeeee", face: "Inter" },
                 borderWidth: 2,
                 shadow: true
             },
             groups: {
                 parent: { color: { background: "#424242", border: "#757575" } },
-                core: { color: { background: "#03a9f4", border: "#0288d1", highlight: {background: "#29b6f6", border: "#01579b"} } },
-                secondary: { color: { background: "#4caf50", border: "#388e3c", highlight: {background: "#66bb6a", border: "#2e7d32"} } },
+                wiki: { color: { background: "#03a9f4", border: "#0288d1", highlight: {background: "#29b6f6", border: "#01579b"} } },
+                prd: { color: { background: "#4caf50", border: "#388e3c", highlight: {background: "#66bb6a", border: "#2e7d32"} } },
+                fsd: { color: { background: "#9c27b0", border: "#7b1fa2", highlight: {background: "#ab47bc", border: "#6a1b9a"} } },
+                brd: { color: { background: "#ff9800", border: "#f57c00", highlight: {background: "#ffa726", border: "#ef6c00"} } },
+                leader: { color: { background: "#e91e63", border: "#c2185b", highlight: {background: "#ec407a", border: "#ad1457"} } },
                 external: { font: { color: "#ffb74d" } }
             },
             edges: {
-                smooth: { type: "continuous" }
+                smooth: { type: "continuous" },
+                arrows: "to"
             },
             physics: {
                 solver: "forceAtlas2Based",
                 forceAtlas2Based: {
-                    gravitationalConstant: -120,
+                    gravitationalConstant: -100,
                     centralGravity: 0.015,
-                    springLength: 200,
-                    springConstant: 0.05
+                    springLength: 250,
+                    springConstant: 0.04
                 }
             },
             interaction: {
