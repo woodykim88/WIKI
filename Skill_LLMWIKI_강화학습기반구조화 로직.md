@@ -77,18 +77,17 @@ github_commit: "{{commit_hash}}"
 - **Parent:** [[상위_카테고리]]
 - **Related:** [[연관_개념_A]], [[연관_개념_B]]
 - **Raw Source:** [[00_Raw/YYYY-MM-DD/Original_Note]]
-💻 GitHub 동기화 자동화 워크플로우 (Git Protocol)
-스킬 실행 시 내부적으로 수행되는 명령어 시퀀스입니다.
+💻 필수 후속 동기화 워크플로우 (Git & Graphify Protocol)
+지식동기화 작업이 완료되면 에이전트는 사용자의 별도 요청이 없어도 **반드시** 아래 두 가지 후속 작업을 연달아 수행해야 합니다.
 
-Stage: git add . (새로운 구조와 문서 모두 포함)
+1. GitHub 동기화 (버전 관리 및 팀 셰어링)
+   - `git add .` (변경된 문서와 HTML 파일 모두 포함)
+   - `git commit -m "[P-Reinforce] 지식동기화 - {{Action_Summary}}"`
+   - `git push origin main`
 
-Commit: * 메시지 예시: reinforce: "Topics/Psychology" 폴더 생성 및 3개 문서 연결 최적화
-
-git commit -m "[P-Reinforce] {{Action_Summary}}"
-
-Push: git push origin main
-
-Verification: 성공 시 confidence_score 보너스 부여, 실패 시 로그 기록 후 재시도.
+2. Graphify 트리거 (네트워크 그래프 최신화)
+   - 지식의 상호 참조(`Related`, `Parent` 등)가 변경되었으므로, 새 구조가 반영되도록 백그라운드 훅이 돌거나 에이전트 내장 스킬인 `/graphify .` 동작을 연계 실행해 지식망 상태를 최신화합니다.
+   - 필요 시, 업데이트된 그래프 데이터를 기반으로 `graphify html` 형식의 인터랙티브 시각화 파일을 재생성/업데이트하여 로컬에 저장하고 역시 깃헙에 푸시합니다.
 
 💡 사용자 가이드: "어떻게 에이전트를 가르칠 것인가?"
 당신이 던지는 한마디가 P-Reinforce의 신경망을 자극합니다.
