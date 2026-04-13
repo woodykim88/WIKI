@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>SaladLab Knowledge Graph</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style type="text/css">
+        body { margin: 0; padding: 0; background-color: #121212; color: #fff; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; overflow: hidden; }
+        #mynetwork { width: 100vw; height: 100vh; border: none; outline: none; }
+        .title-overlay { 
+            position: absolute; top: 20px; left: 20px; z-index: 10; 
+            background: rgba(30,30,30,0.85); padding: 20px; 
+            border-radius: 12px; border: 1px solid #444; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        h1 { margin: 0 0 8px 0; font-size: 22px; color: #29b6f6; letter-spacing: -0.5px; }
+        p { margin: 0; font-size: 14px; color: #bbbbbb; }
+        .legend { margin-top: 15px; font-size: 13px; color: #999; }
+        .legend div { display: flex; align-items: center; margin-bottom: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="title-overlay">
+        <h1>SaladLab Knowledge Graph</h1>
+        <p>Interactive Graphify-style Visualization</p>
+        
+        <div class="legend">
+            <div><div class="dot" style="background:#03a9f4;"></div> Core Policy (핵심 정책)</div>
+            <div><div class="dot" style="background:#4caf50;"></div> Extension (UI 및 외부연동)</div>
+            <div style="margin-top:10px; font-size:12px; color:#777;">💡 마우스 스크롤 줌 & 드래그를 지원합니다.</div>
+        </div>
+    </div>
+    
+    <div id="mynetwork"></div>
+
+    <script type="text/javascript">
+        // 노드 정의
+        var nodes = new vis.DataSet([
+            { id: 1, label: "📁 SaladLab (부모 허브)", group: "parent", shape: "box", font: {size: 20, color: "#ffffff"} },
+            { id: 2, label: "[AI] 리뷰 데이터 모델 및 상태 관리", group: "core", shape: "dot", size: 22 },
+            { id: 3, label: "리뷰 종류 정리", group: "core", shape: "dot", size: 22 },
+            { id: 4, label: "알파리뷰 포인트 지급 정책", group: "core", shape: "dot", size: 22 },
+            { id: 5, label: "알파리뷰 위젯 정책", group: "secondary", shape: "dot", size: 16 },
+            { id: 6, label: "부정 VoC 가이드", group: "secondary", shape: "dot", size: 16 },
+            { id: 7, label: "알파카 AI", group: "external", shape: "text", font: { size: 14 } },
+            { id: 8, label: "VoC 텍스트 분석", group: "external", shape: "text", font: { size: 14 } }
+        ]);
+
+        // 관계(간선) 정의
+        var edges = new vis.DataSet([
+            // 부모 상속 관계 (점선)
+            { from: 2, to: 1, color: {color: "#555"}, dashes: [5, 5] },
+            { from: 3, to: 1, color: {color: "#555"}, dashes: [5, 5] },
+            { from: 4, to: 1, color: {color: "#555"}, dashes: [5, 5] },
+            { from: 5, to: 1, color: {color: "#555"}, dashes: [5, 5] },
+            { from: 6, to: 1, color: {color: "#555"}, dashes: [5, 5] },
+            
+            // 핵심 문서 상호참조 관계 (굵은 실선)
+            { from: 2, to: 4, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
+            { from: 2, to: 3, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
+            { from: 3, to: 4, title: "Related", color: {color: "#03a9f4", opacity: 0.8}, width: 3 },
+            
+            // 파생 문서 연결
+            { from: 4, to: 5, title: "Related", color: {color: "#4caf50", opacity: 0.6}, width: 2 },
+            
+            // 외부 태그
+            { from: 6, to: 7, arrows: "to", color: {color: "#ff9800", opacity: 0.5}, dashes: true },
+            { from: 6, to: 8, arrows: "to", color: {color: "#ff9800", opacity: 0.5}, dashes: true }
+        ]);
+
+        var container = document.getElementById("mynetwork");
+        var data = { nodes: nodes, edges: edges };
+        
+        var options = {
+            nodes: {
+                font: { color: "#eeeeee", face: "Inter" },
+                borderWidth: 2,
+                shadow: true
+            },
+            groups: {
+                parent: { color: { background: "#424242", border: "#757575" } },
+                core: { color: { background: "#03a9f4", border: "#0288d1", highlight: {background: "#29b6f6", border: "#01579b"} } },
+                secondary: { color: { background: "#4caf50", border: "#388e3c", highlight: {background: "#66bb6a", border: "#2e7d32"} } },
+                external: { font: { color: "#ffb74d" } }
+            },
+            edges: {
+                smooth: { type: "continuous" }
+            },
+            physics: {
+                solver: "forceAtlas2Based",
+                forceAtlas2Based: {
+                    gravitationalConstant: -120,
+                    centralGravity: 0.015,
+                    springLength: 200,
+                    springConstant: 0.05
+                }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 200
+            }
+        };
+        var network = new vis.Network(container, data, options);
+    </script>
+</body>
+</html>
