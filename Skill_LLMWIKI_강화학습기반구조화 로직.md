@@ -46,6 +46,15 @@ root/
 │   ├── Policy.md           # 사용자 피드백이 반영된 분류 정책 (RL Weights)
 │   └── Index.md            # 위키 전체의 입구 (Table of Contents)
 │
+├── BRD/                    # [KMS 결과물] 비즈니스 요구사항 정의서 (Business Requirements Document)
+│   └── {{프로젝트명}}/     # 비즈니스 목표, 이해관계자, 성공 기준, 제약사항 등 상위 맥락
+│
+├── PRD/                    # [KMS 결과물] 프로덕트 요구사항 정의서 (Product Requirements Document)
+│   └── {{프로젝트명}}/     # BRD 맥락을 참조하여 프로덕트 수준의 기능/비기능 요구사항 도출
+│
+├── FSD/                    # [KMS 결과물] 기능 명세서 (Functional Specification Document)
+│   └── {{프로젝트명}}/     # PRD에 포함되는 개별 기능의 상세 설계, UI 흐름, Edge-case 정의
+│
 └── .github/                # GitHub Sync 설정 및 자동화 워크플로우
 📝 지식 문서 변환 규격 v2 (The Wiki Template)
 에이전트가 최종적으로 생성/업데이트해야 하는 마크다운 형식입니다.
