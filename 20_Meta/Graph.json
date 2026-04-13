@@ -6,6 +6,51 @@
       "path": "10_Wiki/Leader_Meeting_Weekly/2026-04-13_리더십_미팅.md"
     },
     {
+      "id": "알파리뷰 포인트 지급 정책",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"
+    },
+    {
+      "id": "[AI] 리뷰 데이터 모델 및 상태 관리",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md"
+    },
+    {
+      "id": "부정_VoC_기능_가이드",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md"
+    },
+    {
+      "id": "알파리뷰 위젯 정책",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md"
+    },
+    {
+      "id": "알파솔루션 구독 및 과금 정책",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md"
+    },
+    {
+      "id": "리뷰 종류 정리",
+      "group": 2,
+      "path": "10_Wiki/🛠️ Projects/SaladLab/리뷰 종류 정리.md"
+    },
+    {
+      "id": "코어 - 웹훅 저장 병목 해소",
+      "group": 3,
+      "path": "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md"
+    },
+    {
+      "id": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기",
+      "group": 3,
+      "path": "10_Wiki/PRD/SaladLab/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md"
+    },
+    {
+      "id": "리뷰 무료버전 ver 1.0",
+      "group": 5,
+      "path": "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md"
+    },
+    {
       "id": "Leader_Meeting_Weekly",
       "group": 1
     },
@@ -22,28 +67,7 @@
       "group": 1
     },
     {
-      "id": "코어 - 웹훅 저장 병목 해소",
-      "group": 1
-    },
-    {
-      "id": "알파리뷰 포인트 지급 정책",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"
-    },
-    {
       "id": "SaladLab",
-      "group": 1
-    },
-    {
-      "id": "리뷰 종류 정리",
-      "group": 1
-    },
-    {
-      "id": "알파리뷰 위젯 정책",
-      "group": 1
-    },
-    {
-      "id": "[AI] 리뷰 데이터 모델 및 상태 관리",
       "group": 1
     },
     {
@@ -51,18 +75,8 @@
       "group": 1
     },
     {
-      "id": "[AI] 리뷰 데이터 모델 및 상태 관리",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md"
-    },
-    {
       "id": "Where teams and agents work together 3.md",
       "group": 1
-    },
-    {
-      "id": "부정_VoC_기능_가이드",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md"
     },
     {
       "id": "부정 VoC 및 리뷰 분석 가이드",
@@ -70,15 +84,6 @@
     },
     {
       "id": "SaladLab_VoC_Guide",
-      "group": 1
-    },
-    {
-      "id": "알파리뷰 위젯 정책",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md"
-    },
-    {
-      "id": "알파솔루션 구독 및 과금 정책",
       "group": 1
     },
     {
@@ -90,36 +95,24 @@
       "group": 1
     },
     {
-      "id": "알파솔루션 구독 및 과금 정책",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md"
-    },
-    {
       "id": "코어 구독 시스템 정책",
       "group": 1
-    },
-    {
-      "id": "리뷰 종류 정리",
-      "group": 2,
-      "path": "10_Wiki/🛠️ Projects/SaladLab/리뷰 종류 정리.md"
     },
     {
       "id": "리뷰 종류 정리.md",
       "group": 1
     },
     {
-      "id": "코어 - 웹훅 저장 병목 해소",
-      "group": 3,
-      "path": "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md"
-    },
-    {
       "id": "코어 - 웹훅 저장 병목 해소.md",
       "group": 1
     },
     {
-      "id": "리뷰 무료버전 ver 1.0",
-      "group": 5,
-      "path": "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md"
+      "id": "알파스킨(AlphaSkin) - 막힘 없는 커스텀 경험 구축",
+      "group": 1
+    },
+    {
+      "id": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
+      "group": 1
     },
     {
       "id": "리뷰 무료버전 ver 1.0.md",
@@ -325,6 +318,26 @@
     {
       "source": "코어 - 웹훅 저장 병목 해소",
       "target": "코어 - 웹훅 저장 병목 해소.md",
+      "value": 1
+    },
+    {
+      "source": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기",
+      "target": "SaladLab",
+      "value": 1
+    },
+    {
+      "source": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기",
+      "target": "알파스킨(AlphaSkin) - 막힘 없는 커스텀 경험 구축",
+      "value": 1
+    },
+    {
+      "source": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기",
+      "target": "알파리뷰 위젯 정책",
+      "value": 1
+    },
+    {
+      "source": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기",
+      "target": "카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
       "value": 1
     },
     {
