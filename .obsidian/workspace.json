@@ -11,10 +11,14 @@
             "id": "bdef1620e3d4ac0d",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "그래프 뷰"
+              "type": "markdown",
+              "state": {
+                "file": "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "리뷰 무료버전 ver 1.0"
             }
           }
         ]
