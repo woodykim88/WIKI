@@ -183,8 +183,17 @@
   },
   "active": "bdef1620e3d4ac0d",
   "lastOpenFiles": [
-    "Skill_LLMWIKI_강화학습기반구조화 로직.md",
+    "10_Wiki/🛠️ Projects/SaladLab/리뷰 종류 요약.md",
+    "00_Staging/Where teams and agents work together.md",
+    "00_Raw/2026-04-16/리뷰 종류 요약.md",
+    "00_Raw/2026-04-16",
     "Clippings/리뷰 AI 인사이트 Pro 용어 정리.md",
+    "scripts/notion_batch_cleaner.py",
+    "Skill_LLMWIKI_Notion_Cleaner.md",
+    "scripts",
+    "00_Staging/Trash",
+    "00_Staging",
+    "Skill_LLMWIKI_강화학습기반구조화 로직.md",
     "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md",
     "10_Wiki/PRD/SaladLab/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
     "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
@@ -200,11 +209,6 @@
     "10_Wiki/PRD/SaladLab",
     "PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
     "PRD/SaladLab",
-    "PRD",
-    "10_Wiki/PRD",
-    "10_Wiki/FSD",
-    "10_Wiki/BRD",
-    "10_Wiki/🚀 FSD",
     "Clippings/혜택 관리(포인트 관련).md",
     "Clippings/[AI] 리뷰 데이터 모델 및 상태 관리.md",
     "Clippings/리뷰 데이터 모델 및 상태 관리.md",
@@ -214,10 +218,6 @@
     "Clippings/리뷰위젯.md",
     "Clippings/과금 시스템.md",
     "10_Wiki/🛠️ Projects/SaladLab/리뷰 종류 정리.md",
-    "10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md",
-    "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md",
-    "10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md",
-    "10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md",
-    "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"
+    "10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md"
   ]
 }
