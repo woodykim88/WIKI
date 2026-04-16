@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md",
+                "file": "Clippings/리뷰 AI 인사이트 Pro 용어 정리.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "리뷰 무료버전 ver 1.0"
+              "title": "리뷰 AI 인사이트 Pro 용어 정리"
             }
           }
         ]
@@ -183,16 +183,20 @@
   },
   "active": "bdef1620e3d4ac0d",
   "lastOpenFiles": [
-    "Clippings/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
-    "10_Wiki/PRD/SaladLab/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
-    "Clippings/리뷰 무료버전 ver 1.0.md",
+    "Skill_LLMWIKI_강화학습기반구조화 로직.md",
+    "Clippings/리뷰 AI 인사이트 Pro 용어 정리.md",
     "10_Wiki/BRD/SaladLab/리뷰 무료버전 ver 1.0.md",
+    "10_Wiki/PRD/SaladLab/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
+    "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
+    "20_Meta/Index.md",
+    "20_Meta/Policy.md",
+    "Clippings/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md",
+    "Clippings/리뷰 무료버전 ver 1.0.md",
     "10_Wiki/BRD/SaladLab",
     "Clippings/코어 - 웹훅 저장 병목 해소.md",
     "10_Wiki/Leader_Meeting_Weekly/2026-04-13_리더십_미팅.md",
     "10_Wiki/Leader_Meeting_Weekly",
     "10_Wiki/무제 폴더",
-    "10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
     "10_Wiki/PRD/SaladLab",
     "PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md",
     "PRD/SaladLab",
@@ -214,7 +218,6 @@
     "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md",
     "10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md",
     "10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md",
-    "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md",
-    "Skill_LLMWIKI_강화학습기반구조화 로직.md"
+    "10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"
   ]
 }
