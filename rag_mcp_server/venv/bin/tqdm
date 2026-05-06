@@ -1,0 +1,8 @@
+#!/bin/sh
+'''exec' "/Users/jongwookim/Library/CloudStorage/BeeStation-MyBeeStationPlus/옵시디언 (개인)/10_Projects/WIKI/rag_mcp_server/venv/bin/python3" "$0" "$@"
+' '''
+import sys
+from tqdm.cli import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())
