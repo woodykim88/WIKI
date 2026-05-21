@@ -65,7 +65,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L31",
       "id": "wiki_server_parse_frontmatter",
-      "community": 8
+      "community": 3
     },
     {
       "label": "load_documents()",
@@ -73,7 +73,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L43",
       "id": "wiki_server_load_documents",
-      "community": 8
+      "community": 3
     },
     {
       "label": "_extract_category()",
@@ -81,7 +81,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L65",
       "id": "wiki_server_extract_category",
-      "community": 8
+      "community": 3
     },
     {
       "label": "_tokenize()",
@@ -89,7 +89,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L77",
       "id": "wiki_server_tokenize",
-      "community": 5
+      "community": 8
     },
     {
       "label": "build_search_index()",
@@ -97,7 +97,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L82",
       "id": "wiki_server_build_search_index",
-      "community": 5
+      "community": 3
     },
     {
       "label": "search_docs()",
@@ -105,7 +105,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L95",
       "id": "wiki_server_search_docs",
-      "community": 3
+      "community": 8
     },
     {
       "label": "get_anthropic_client()",
@@ -113,7 +113,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L120",
       "id": "wiki_server_get_anthropic_client",
-      "community": 3
+      "community": 5
     },
     {
       "label": "QARequest",
@@ -137,7 +137,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L145",
       "id": "wiki_server_ask_question",
-      "community": 3
+      "community": 5
     },
     {
       "label": "_build_search_answer()",
@@ -145,7 +145,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L176",
       "id": "wiki_server_build_search_answer",
-      "community": 3
+      "community": 5
     },
     {
       "label": "_extract_relevant_section()",
@@ -161,7 +161,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L220",
       "id": "wiki_server_list_documents",
-      "community": 3
+      "community": 8
     },
     {
       "label": "get_document()",
@@ -201,7 +201,7 @@
       "source_file": "rag_mcp_server/wiki_server.py",
       "source_location": "L265",
       "id": "wiki_server_reindex",
-      "community": 5
+      "community": 3
     },
     {
       "label": "index()",
@@ -297,7 +297,7 @@
       "source_file": "api/index.py",
       "source_location": "L29",
       "id": "index_parse_frontmatter",
-      "community": 9
+      "community": 10
     },
     {
       "label": "_extract_category()",
@@ -305,7 +305,7 @@
       "source_file": "api/index.py",
       "source_location": "L41",
       "id": "index_extract_category",
-      "community": 9
+      "community": 10
     },
     {
       "label": "_tokenize()",
@@ -329,7 +329,7 @@
       "source_file": "api/index.py",
       "source_location": "L58",
       "id": "index_load_documents",
-      "community": 9
+      "community": 10
     },
     {
       "label": "build_search_index()",
@@ -345,7 +345,7 @@
       "source_file": "api/index.py",
       "source_location": "L99",
       "id": "index_search_docs",
-      "community": 10
+      "community": 9
     },
     {
       "label": "_extract_relevant_section()",
@@ -377,7 +377,7 @@
       "source_file": "api/index.py",
       "source_location": "L166",
       "id": "index_ask_question",
-      "community": 10
+      "community": 9
     },
     {
       "label": "list_documents()",
@@ -385,7 +385,7 @@
       "source_file": "api/index.py",
       "source_location": "L209",
       "id": "index_list_documents",
-      "community": 10
+      "community": 9
     },
     {
       "label": "get_document()",

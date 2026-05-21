@@ -1,7 +1,7 @@
 # Graph Report - .  (2026-05-21)
 
 ## Corpus Check
-- 5 files · ~213,464 words
+- 5 files · ~216,068 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -36,14 +36,14 @@
 10. `clean_notion_markdown()` - 3 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `build_search_index()` --calls--> `load_documents()`  [EXTRACTED]
+- `build_search_index()` --calls--> `_tokenize()`  [EXTRACTED]
+  rag_mcp_server/wiki_server.py → rag_mcp_server/wiki_server.py  _Bridges community 8 → community 3_
+- `_extract_relevant_section()` --calls--> `_tokenize()`  [EXTRACTED]
   rag_mcp_server/wiki_server.py → rag_mcp_server/wiki_server.py  _Bridges community 8 → community 5_
 - `search_docs()` --calls--> `_tokenize()`  [EXTRACTED]
-  rag_mcp_server/wiki_server.py → rag_mcp_server/wiki_server.py  _Bridges community 5 → community 3_
-- `search_docs()` --calls--> `_tokenize()`  [EXTRACTED]
-  api/index.py → api/index.py  _Bridges community 6 → community 10_
+  api/index.py → api/index.py  _Bridges community 6 → community 9_
 - `build_search_index()` --calls--> `load_documents()`  [EXTRACTED]
-  api/index.py → api/index.py  _Bridges community 9 → community 6_
+  api/index.py → api/index.py  _Bridges community 10 → community 6_
 
 ## Communities
 
@@ -61,7 +61,7 @@ Nodes (3): get_document(), SaladLab LLM Wiki — Vercel Serverless Function BM25
 
 ### Community 3 - "Community 3"
 Cohesion: 0.4
-Nodes (5): ask_question(), _build_search_answer(), get_anthropic_client(), list_documents(), search_docs()
+Nodes (5): build_search_index(), _extract_category(), load_documents(), parse_frontmatter(), reindex()
 
 ### Community 4 - "Community 4"
 Cohesion: 0.67
@@ -69,7 +69,7 @@ Nodes (3): clean_notion_markdown(), process_batch(), 1. 노션 토글(<details><
 
 ### Community 5 - "Community 5"
 Cohesion: 0.5
-Nodes (4): build_search_index(), _extract_relevant_section(), reindex(), _tokenize()
+Nodes (4): ask_question(), _build_search_answer(), _extract_relevant_section(), get_anthropic_client()
 
 ### Community 6 - "Community 6"
 Cohesion: 0.5
@@ -81,15 +81,15 @@ Nodes (3): BaseModel, QARequest, QARequest
 
 ### Community 8 - "Community 8"
 Cohesion: 0.67
-Nodes (3): _extract_category(), load_documents(), parse_frontmatter()
+Nodes (3): list_documents(), search_docs(), _tokenize()
 
 ### Community 9 - "Community 9"
 Cohesion: 0.67
-Nodes (3): _extract_category(), load_documents(), parse_frontmatter()
+Nodes (3): ask_question(), list_documents(), search_docs()
 
 ### Community 10 - "Community 10"
 Cohesion: 0.67
-Nodes (3): ask_question(), list_documents(), search_docs()
+Nodes (3): _extract_category(), load_documents(), parse_frontmatter()
 
 ### Community 11 - "Community 11"
 Cohesion: 1.0
