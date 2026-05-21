@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>P-Reinforce Wiki Knowledge Graph</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; overflow: hidden; }
+  svg { display: block; }
+  .link { stroke-opacity: 0.4; }
+  .node circle { stroke: #0d1117; stroke-width: 1.5px; cursor: grab; }
+  .node circle:active { cursor: grabbing; }
+  .node text { font-size: 11px; fill: #c9d1d9; pointer-events: none; text-shadow: 0 0 4px #0d1117, 0 0 4px #0d1117, 0 0 4px #0d1117; }
+  .tooltip {
+    position: absolute; padding: 10px 14px; background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; font-size: 13px; pointer-events: none; opacity: 0;
+    transition: opacity 0.15s; max-width: 420px; line-height: 1.5; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    z-index: 10;
+  }
+  .tooltip .title { font-weight: 600; color: #58a6ff; margin-bottom: 4px; }
+  .tooltip .path { color: #8b949e; font-size: 11px; word-break: break-all; }
+  .tooltip .links { color: #8b949e; font-size: 11px; margin-top: 4px; }
+  #legend {
+    position: absolute; top: 16px; left: 16px; background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 14px 18px; font-size: 12px; line-height: 2; z-index: 5;
+  }
+  #legend h3 { font-size: 14px; color: #58a6ff; margin-bottom: 6px; }
+  #legend .item { display: flex; align-items: center; gap: 8px; }
+  #legend .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  #controls {
+    position: absolute; bottom: 16px; left: 16px; background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #8b949e; z-index: 5;
+  }
+  #search-box {
+    position: absolute; top: 16px; right: 16px; background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 10px 14px; z-index: 5;
+  }
+  #search-box input {
+    background: #0d1117; border: 1px solid #30363d; border-radius: 4px; color: #c9d1d9;
+    padding: 6px 10px; font-size: 13px; width: 240px; outline: none;
+  }
+  #search-box input:focus { border-color: #58a6ff; }
+  #search-box input::placeholder { color: #484f58; }
+  #stats {
+    position: absolute; bottom: 16px; right: 16px; background: #161b22; border: 1px solid #30363d;
+    border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #8b949e; z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<div id="legend">
+  <h3>Knowledge Graph</h3>
+</div>
+<div id="search-box">
+  <input type="text" id="search" placeholder="Search nodes...">
+</div>
+<div id="controls">Drag: move node | Scroll: zoom | Click bg: pan</div>
+<div id="stats"></div>
+<div class="tooltip" id="tooltip"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const GRAPH_DATA = {"nodes":[{"id":"알파리뷰 포인트 지급 정책","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파리뷰 포인트 지급 정책.md"},{"id":"[AI] 리뷰 데이터 모델 및 상태 관리","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/[AI] 리뷰 데이터 모델 및 상태 관리.md"},{"id":"부정_VoC_기능_가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/부정_VoC_기능_가이드.md"},{"id":"알파리뷰 위젯 정책","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 정책.md"},{"id":"알파솔루션 구독 및 과금 정책","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 정책.md"},{"id":"리뷰 종류 정리","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/리뷰 종류 정리.md"},{"id":"코어 - 웹훅 저장 병목 해소","group":3,"path":"10_Wiki/PRD/SaladLab/코어 - 웹훅 저장 병목 해소.md"},{"id":"카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기","group":3,"path":"10_Wiki/PRD/SaladLab/카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기.md"},{"id":"[리뷰] 무료구독 Phase1","group":3,"path":"10_Wiki/PRD/SaladLab/[리뷰] 무료구독 Phase1.md"},{"id":"알파솔루션 구독 및 과금 시스템 종합 브리핑","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파솔루션 구독 및 과금 시스템 종합 브리핑.md"},{"id":"알파앱스 솔루션 통합 브리핑","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 솔루션 통합 브리핑.md"},{"id":"알파앱스 기능 감사 및 데이터 아키텍처","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 기능 감사 및 데이터 아키텍처.md"},{"id":"알파리뷰 리뷰 수집 및 유도 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파리뷰 리뷰 수집 및 유도 가이드.md"},{"id":"알파리뷰 리뷰 분석 및 관리 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파리뷰 리뷰 분석 및 관리 가이드.md"},{"id":"알파앱스 연동 및 알림톡 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 연동 및 알림톡 가이드.md"},{"id":"알파리뷰 위젯 디자인 및 위젯 노출 설정","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파리뷰 위젯 디자인 및 위젯 노출 설정.md"},{"id":"알파업셀 성과 분석 및 프로모션 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파업셀 성과 분석 및 프로모션 가이드.md"},{"id":"알파푸시 옴니채널 마케팅 캠페인 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파푸시 옴니채널 마케팅 캠페인 가이드.md"},{"id":"알파업셀 위젯 배치 및 개별 설정 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파업셀 위젯 배치 및 개별 설정 가이드.md"},{"id":"알파앱스 통합 인사이트 및 부가기능 연동 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 통합 인사이트 및 부가기능 연동 가이드.md"},{"id":"알파앱스 백엔드 정책 및 해지결제 알림 로직 가이드","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 백엔드 정책 및 해지결제 알림 로직 가이드.md"},{"id":"알파앱스 통합 솔루션 가이드_ 리뷰·업셀·푸시 완벽 정리","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파앱스 통합 솔루션 가이드_ 리뷰·업셀·푸시 완벽 정리.md"},{"id":"코어_Type_Status_정의","group":4,"path":"10_Wiki/💡 Topics/코어시스템/코어_Type_Status_정의.md"},{"id":"코어_데이터베이스_스키마_가이드","group":4,"path":"10_Wiki/💡 Topics/코어시스템/코어_데이터베이스_스키마_가이드.md"},{"id":"상단고정_리뷰_특징_분석","group":7,"path":"10_Wiki/💡 Topics/데이터분석/상단고정_리뷰_특징_분석.md"},{"id":"20260506_코어팀_조직개편_미팅","group":6,"path":"10_Wiki/💡 Topics/미팅록/20260506_코어팀_조직개편_미팅.md"},{"id":"에이전틱 알파앱스 서비스 컨셉","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/에이전틱 알파앱스 서비스 컨셉.md"},{"id":"에이전틱 알파앱스 PRD","group":3,"path":"10_Wiki/PRD/SaladLab/에이전틱 알파앱스 PRD.md"},{"id":"20260506_에이전틱_알파앱스_사전합의_질문","group":6,"path":"10_Wiki/💡 Topics/미팅록/20260506_에이전틱_알파앱스_사전합의_질문.md"},{"id":"00-프로젝트-개요","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/00-프로젝트-개요.md"},{"id":"01-리뷰-데이터모델-및-상태관리","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/01-리뷰-데이터모델-및-상태관리.md"},{"id":"02-리뷰-게시-정책","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/02-리뷰-게시-정책.md"},{"id":"03-리뷰-보상-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/03-리뷰-보상-시스템.md"},{"id":"04-리뷰-배지-라벨-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/04-리뷰-배지-라벨-시스템.md"},{"id":"05-리뷰-키워드-해시태그","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/05-리뷰-키워드-해시태그.md"},{"id":"06-리뷰-설문조사-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/06-리뷰-설문조사-시스템.md"},{"id":"07-리뷰-AI-분석-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/07-리뷰-AI-분석-시스템.md"},{"id":"08-리뷰-챌린지-캠페인","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/08-리뷰-챌린지-캠페인.md"},{"id":"09-리뷰-요청-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/09-리뷰-요청-시스템.md"},{"id":"10-리뷰-외부연동-수집","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/01-리뷰-시스템/10-리뷰-외부연동-수집.md"},{"id":"01-샵-기본설정-디자인","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/02-샵-설정-및-정책/01-샵-기본설정-디자인.md"},{"id":"02-리뷰-정책-규칙","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/02-샵-설정-및-정책/02-리뷰-정책-규칙.md"},{"id":"01-위젯-구성-렌더링","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/03-위젯-시스템/01-위젯-구성-렌더링.md"},{"id":"01-상품-주문-고객-모델","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/04-상품-주문-고객/01-상품-주문-고객-모델.md"},{"id":"01-알림톡-메시지-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/05-메시징-알림톡/01-알림톡-메시지-시스템.md"},{"id":"01-통계-리포트-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/06-분석-리포트/01-통계-리포트-시스템.md"},{"id":"01-외부-플랫폼-연동","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/07-외부연동/01-외부-플랫폼-연동.md"},{"id":"01-백그라운드-작업-시스템","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/08-시스템-인프라/01-백그라운드-작업-시스템.md"},{"id":"01-비즈니스-열거형-전체목록","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/09-부록/01-비즈니스-열거형-전체목록.md"},{"id":"02-API-엔드포인트-전체맵","group":5,"path":"10_Wiki/💡 Topics/리뷰팀 정책/09-부록/02-API-엔드포인트-전체맵.md"},{"id":"알파페이지 마이크로사이트 전략","group":2,"path":"10_Wiki/🛠️ Projects/SaladLab/알파페이지 마이크로사이트 전략.md"}],"links":[{"source":"알파리뷰 포인트 지급 정책","target":"리뷰 종류 정리","value":1},{"source":"알파리뷰 포인트 지급 정책","target":"알파리뷰 위젯 디자인 및 위젯 노출 설정","value":1},{"source":"알파리뷰 포인트 지급 정책","target":"03-리뷰-보상-시스템","value":2},{"source":"알파리뷰 포인트 지급 정책","target":"01-리뷰-데이터모델-및-상태관리","value":1},{"source":"알파리뷰 포인트 지급 정책","target":"02-리뷰-정책-규칙","value":1},{"source":"[AI] 리뷰 데이터 모델 및 상태 관리","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"[AI] 리뷰 데이터 모델 및 상태 관리","target":"리뷰 종류 정리","value":1},{"source":"[AI] 리뷰 데이터 모델 및 상태 관리","target":"알파리뷰 위젯 정책","value":1},{"source":"부정_VoC_기능_가이드","target":"[AI] 리뷰 데이터 모델 및 상태 관리","value":1},{"source":"부정_VoC_기능_가이드","target":"리뷰 종류 정리","value":1},{"source":"알파리뷰 위젯 정책","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파리뷰 위젯 정책","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"알파리뷰 위젯 정책","target":"리뷰 종류 정리","value":1},{"source":"알파솔루션 구독 및 과금 정책","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파솔루션 구독 및 과금 정책","target":"알파리뷰 위젯 정책","value":1},{"source":"알파솔루션 구독 및 과금 정책","target":"[AI] 리뷰 데이터 모델 및 상태 관리","value":1},{"source":"알파솔루션 구독 및 과금 정책","target":"리뷰 종류 정리","value":1},{"source":"알파솔루션 구독 및 과금 정책","target":"코어_Type_Status_정의","value":1},{"source":"리뷰 종류 정리","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"리뷰 종류 정리","target":"[AI] 리뷰 데이터 모델 및 상태 관리","value":1},{"source":"리뷰 종류 정리","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"리뷰 종류 정리","target":"코어_Type_Status_정의","value":1},{"source":"리뷰 종류 정리","target":"상단고정_리뷰_특징_분석","value":1},{"source":"코어 - 웹훅 저장 병목 해소","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기","target":"알파리뷰 위젯 정책","value":1},{"source":"[리뷰] 무료구독 Phase1","target":"알파리뷰 위젯 정책","value":1},{"source":"[리뷰] 무료구독 Phase1","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파솔루션 구독 및 과금 시스템 종합 브리핑","target":"알파리뷰 위젯 정책","value":1},{"source":"알파솔루션 구독 및 과금 시스템 종합 브리핑","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파솔루션 구독 및 과금 시스템 종합 브리핑","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"알파솔루션 구독 및 과금 시스템 종합 브리핑","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"알파앱스 솔루션 통합 브리핑","target":"알파솔루션 구독 및 과금 시스템 종합 브리핑","value":1},{"source":"알파앱스 솔루션 통합 브리핑","target":"알파앱스 기능 감사 및 데이터 아키텍처","value":1},{"source":"알파앱스 솔루션 통합 브리핑","target":"알파리뷰 위젯 정책","value":1},{"source":"알파앱스 솔루션 통합 브리핑","target":"부정_VoC_기능_가이드","value":1},{"source":"알파앱스 솔루션 통합 브리핑","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파앱스 기능 감사 및 데이터 아키텍처","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"알파앱스 기능 감사 및 데이터 아키텍처","target":"알파솔루션 구독 및 과금 시스템 종합 브리핑","value":1},{"source":"알파앱스 기능 감사 및 데이터 아키텍처","target":"부정_VoC_기능_가이드","value":1},{"source":"알파앱스 기능 감사 및 데이터 아키텍처","target":"알파리뷰 위젯 정책","value":1},{"source":"알파앱스 기능 감사 및 데이터 아키텍처","target":"리뷰 종류 정리","value":1},{"source":"알파리뷰 리뷰 수집 및 유도 가이드","target":"알파리뷰 위젯 정책","value":1},{"source":"알파리뷰 리뷰 분석 및 관리 가이드","target":"알파리뷰 위젯 정책","value":1},{"source":"알파리뷰 위젯 디자인 및 위젯 노출 설정","target":"알파리뷰 포인트 지급 정책","value":1},{"source":"알파리뷰 위젯 디자인 및 위젯 노출 설정","target":"01-위젯-구성-렌더링","value":2},{"source":"알파업셀 성과 분석 및 프로모션 가이드","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"알파푸시 옴니채널 마케팅 캠페인 가이드","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"알파업셀 위젯 배치 및 개별 설정 가이드","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"알파앱스 백엔드 정책 및 해지결제 알림 로직 가이드","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"코어_Type_Status_정의","target":"코어_데이터베이스_스키마_가이드","value":2},{"source":"코어_Type_Status_정의","target":"리뷰 종류 정리","value":1},{"source":"코어_데이터베이스_스키마_가이드","target":"코어_Type_Status_정의","value":2},{"source":"코어_데이터베이스_스키마_가이드","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"상단고정_리뷰_특징_분석","target":"리뷰 종류 정리","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"알파앱스 기능 감사 및 데이터 아키텍처","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"알파푸시 옴니채널 마케팅 캠페인 가이드","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"알파업셀 성과 분석 및 프로모션 가이드","value":1},{"source":"에이전틱 알파앱스 서비스 컨셉","target":"에이전틱 알파앱스 PRD","value":2},{"source":"에이전틱 알파앱스 PRD","target":"에이전틱 알파앱스 서비스 컨셉","value":2},{"source":"에이전틱 알파앱스 PRD","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"에이전틱 알파앱스 PRD","target":"알파앱스 솔루션 통합 브리핑","value":1},{"source":"에이전틱 알파앱스 PRD","target":"알파앱스 기능 감사 및 데이터 아키텍처","value":1},{"source":"에이전틱 알파앱스 PRD","target":"알파푸시 옴니채널 마케팅 캠페인 가이드","value":1},{"source":"에이전틱 알파앱스 PRD","target":"알파업셀 성과 분석 및 프로모션 가이드","value":1},{"source":"20260506_에이전틱_알파앱스_사전합의_질문","target":"에이전틱 알파앱스 서비스 컨셉","value":2},{"source":"20260506_에이전틱_알파앱스_사전합의_질문","target":"에이전틱 알파앱스 PRD","value":2},{"source":"20260506_에이전틱_알파앱스_사전합의_질문","target":"20260506_코어팀_조직개편_미팅","value":1},{"source":"20260506_에이전틱_알파앱스_사전합의_질문","target":"알파앱스 기능 감사 및 데이터 아키텍처","value":1},{"source":"20260506_에이전틱_알파앱스_사전합의_질문","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"리뷰 종류 정리","target":"01-리뷰-데이터모델-및-상태관리","value":1},{"source":"리뷰 종류 정리","target":"09-리뷰-요청-시스템","value":1},{"source":"리뷰 종류 정리","target":"10-리뷰-외부연동-수집","value":1},{"source":"리뷰 종류 정리","target":"02-리뷰-정책-규칙","value":1},{"source":"알파리뷰 리뷰 수집 및 유도 가이드","target":"09-리뷰-요청-시스템","value":1},{"source":"알파리뷰 리뷰 수집 및 유도 가이드","target":"08-리뷰-챌린지-캠페인","value":1},{"source":"알파리뷰 리뷰 수집 및 유도 가이드","target":"01-알림톡-메시지-시스템","value":1},{"source":"알파리뷰 리뷰 수집 및 유도 가이드","target":"02-리뷰-정책-규칙","value":1},{"source":"03-리뷰-보상-시스템","target":"알파리뷰 포인트 지급 정책","value":2},{"source":"01-위젯-구성-렌더링","target":"알파리뷰 위젯 디자인 및 위젯 노출 설정","value":2},{"source":"00-프로젝트-개요","target":"01-리뷰-데이터모델-및-상태관리","value":1},{"source":"00-프로젝트-개요","target":"01-위젯-구성-렌더링","value":1},{"source":"00-프로젝트-개요","target":"01-상품-주문-고객-모델","value":1},{"source":"01-리뷰-데이터모델-및-상태관리","target":"03-리뷰-보상-시스템","value":1},{"source":"01-리뷰-데이터모델-및-상태관리","target":"02-리뷰-게시-정책","value":1},{"source":"02-리뷰-정책-규칙","target":"03-리뷰-보상-시스템","value":1},{"source":"02-리뷰-정책-규칙","target":"01-리뷰-데이터모델-및-상태관리","value":1},{"source":"알파페이지 마이크로사이트 전략","target":"에이전틱 알파앱스 서비스 컨셉","value":2},{"source":"알파페이지 마이크로사이트 전략","target":"에이전틱 알파앱스 PRD","value":2},{"source":"알파페이지 마이크로사이트 전략","target":"알파솔루션 구독 및 과금 정책","value":1},{"source":"알파페이지 마이크로사이트 전략","target":"알파리뷰 위젯 디자인 및 위젯 노출 설정","value":1},{"source":"알파페이지 마이크로사이트 전략","target":"01-위젯-구성-렌더링","value":1},{"source":"알파페이지 마이크로사이트 전략","target":"[리뷰] 무료구독 Phase1","value":1},{"source":"알파페이지 마이크로사이트 전략","target":"카페24 스킨 구매부터 운영까지, 막힘 없는 경험 만들기","value":1}]};
+
+const GROUP_META = {
+  2: { label: "Projects (PM)", color: "#58a6ff" },
+  3: { label: "PRD", color: "#f78166" },
+  4: { label: "Topics / Core", color: "#7ee787" },
+  5: { label: "Review Policy (Dev)", color: "#d2a8ff" },
+  6: { label: "Meeting Notes", color: "#ffa657" },
+  7: { label: "Data Analysis", color: "#ff7b72" }
+};
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+const svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
+const g = svg.append("g");
+const zoom = d3.zoom().scaleExtent([0.15, 5]).on("zoom", e => g.attr("transform", e.transform));
+svg.call(zoom);
+
+const tooltip = d3.select("#tooltip");
+
+const legend = d3.select("#legend");
+Object.entries(GROUP_META).forEach(([, m]) => {
+  legend.append("div").attr("class","item").html(`<span class="dot" style="background:${m.color}"></span>${m.label}`);
+});
+
+const data = GRAPH_DATA;
+const linkCount = {};
+data.links.forEach(l => { linkCount[l.source] = (linkCount[l.source]||0)+1; linkCount[l.target] = (linkCount[l.target]||0)+1; });
+
+d3.select("#stats").html(`Nodes: ${data.nodes.length} | Links: ${data.links.length}`);
+
+const simulation = d3.forceSimulation(data.nodes)
+  .force("link", d3.forceLink(data.links).id(d => d.id).distance(d => 120 / (d.value||1)))
+  .force("charge", d3.forceManyBody().strength(-400))
+  .force("center", d3.forceCenter(width/2, height/2))
+  .force("collision", d3.forceCollide().radius(d => nr(d)+12));
+
+function nr(d){ return Math.max(6, Math.min(20, 4 + (linkCount[d.id]||0)*1.5)); }
+
+const link = g.append("g").selectAll("line").data(data.links).join("line")
+  .attr("class","link").attr("stroke","#30363d").attr("stroke-width", d => Math.max(1, d.value));
+
+const node = g.append("g").selectAll("g").data(data.nodes).join("g").attr("class","node")
+  .call(d3.drag().on("start",(e,d)=>{if(!e.active)simulation.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+  .on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y;}).on("end",(e,d)=>{if(!e.active)simulation.alphaTarget(0);d.fx=null;d.fy=null;}));
+
+node.append("circle").attr("r", d => nr(d)).attr("fill", d => (GROUP_META[d.group]||{}).color||"#8b949e");
+node.append("text").attr("dx", d => nr(d)+4).attr("dy","0.35em").text(d => d.id.length>24 ? d.id.slice(0,22)+".." : d.id);
+
+node.on("mouseover",(event,d)=>{
+  const conns = data.links.filter(l=>(l.source.id||l.source)===d.id||(l.target.id||l.target)===d.id);
+  const names = conns.map(l=>(l.source.id||l.source)===d.id?(l.target.id||l.target):(l.source.id||l.source));
+  tooltip.html(`<div class="title">${d.id}</div><div class="path">${d.path}</div>`+(names.length?`<div class="links">Links (${names.length}): ${names.join(", ")}</div>`:""))
+    .style("opacity",1).style("left",(event.pageX+14)+"px").style("top",(event.pageY-14)+"px");
+  const s = new Set(names); s.add(d.id);
+  node.select("circle").attr("opacity",n=>s.has(n.id)?1:0.12);
+  node.select("text").attr("opacity",n=>s.has(n.id)?1:0.08);
+  link.attr("stroke-opacity",l=>(l.source.id===d.id||l.target.id===d.id)?0.9:0.04)
+    .attr("stroke",l=>(l.source.id===d.id||l.target.id===d.id)?"#58a6ff":"#30363d");
+}).on("mousemove",e=>{
+  tooltip.style("left",(e.pageX+14)+"px").style("top",(e.pageY-14)+"px");
+}).on("mouseout",()=>{
+  tooltip.style("opacity",0);
+  node.select("circle").attr("opacity",1); node.select("text").attr("opacity",1);
+  link.attr("stroke-opacity",0.4).attr("stroke","#30363d");
+});
+
+d3.select("#search").on("input",function(){
+  const q=this.value.toLowerCase();
+  if(!q){node.select("circle").attr("opacity",1);node.select("text").attr("opacity",1);link.attr("stroke-opacity",0.4);return;}
+  node.select("circle").attr("opacity",d=>d.id.toLowerCase().includes(q)?1:0.08);
+  node.select("text").attr("opacity",d=>d.id.toLowerCase().includes(q)?1:0.04);
+  link.attr("stroke-opacity",0.04);
+});
+
+simulation.on("tick",()=>{
+  link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+  node.attr("transform",d=>`translate(${d.x},${d.y})`);
+});
+
+setTimeout(()=>{
+  const b=g.node().getBBox(), s=0.8/Math.max(b.width/width,b.height/height);
+  svg.transition().duration(800).call(zoom.transform,d3.zoomIdentity.translate(width/2-s*(b.x+b.width/2),height/2-s*(b.y+b.height/2)).scale(s));
+},2500);
+</script>
+</body>
+</html>

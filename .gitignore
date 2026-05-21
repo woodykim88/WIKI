@@ -1,1 +1,4 @@
 자유프로젝트1/
+.vercel
+rag_mcp_server/venv/
+rag_mcp_server/.env

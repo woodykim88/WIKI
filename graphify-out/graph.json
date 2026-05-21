@@ -9,7 +9,7 @@
       "source_file": "scripts/notion_batch_cleaner.py",
       "source_location": "L1",
       "id": "scripts_notion_batch_cleaner_py",
-      "community": 1
+      "community": 4
     },
     {
       "label": "clean_notion_markdown()",
@@ -17,7 +17,7 @@
       "source_file": "scripts/notion_batch_cleaner.py",
       "source_location": "L7",
       "id": "notion_batch_cleaner_clean_notion_markdown",
-      "community": 1
+      "community": 4
     },
     {
       "label": "process_batch()",
@@ -25,14 +25,14 @@
       "source_file": "scripts/notion_batch_cleaner.py",
       "source_location": "L23",
       "id": "notion_batch_cleaner_process_batch",
-      "community": 1
+      "community": 4
     },
     {
       "label": "1. \ub178\uc158 \ud1a0\uae00(<details><summary>)\uc744 \ub9c8\ud06c\ub2e4\uc6b4 \ud5e4\ub354(###) \uae30\ubc18\uc73c\ub85c \ud3c9\ud0c4\ud654     2. \uacfc\ub3c4\ud55c \ube48 \uc904 \uc5ec\ubc31 \uc81c\uac70",
       "file_type": "rationale",
       "source_file": "scripts/notion_batch_cleaner.py",
       "source_location": "L8",
-      "community": 1,
+      "community": 4,
       "id": "notion_batch_cleaner_rationale_8"
     },
     {
@@ -41,7 +41,7 @@
       "source_file": "rag_mcp_server/build_index.py",
       "source_location": "L1",
       "id": "rag_mcp_server_build_index_py",
-      "community": 2
+      "community": 11
     },
     {
       "label": "is_valid_file()",
@@ -49,7 +49,175 @@
       "source_file": "rag_mcp_server/build_index.py",
       "source_location": "L28",
       "id": "build_index_is_valid_file",
-      "community": 2
+      "community": 11
+    },
+    {
+      "label": "wiki_server.py",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L1",
+      "id": "rag_mcp_server_wiki_server_py",
+      "community": 1
+    },
+    {
+      "label": "parse_frontmatter()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L31",
+      "id": "wiki_server_parse_frontmatter",
+      "community": 8
+    },
+    {
+      "label": "load_documents()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L43",
+      "id": "wiki_server_load_documents",
+      "community": 8
+    },
+    {
+      "label": "_extract_category()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L65",
+      "id": "wiki_server_extract_category",
+      "community": 8
+    },
+    {
+      "label": "_tokenize()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L77",
+      "id": "wiki_server_tokenize",
+      "community": 5
+    },
+    {
+      "label": "build_search_index()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L82",
+      "id": "wiki_server_build_search_index",
+      "community": 5
+    },
+    {
+      "label": "search_docs()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L95",
+      "id": "wiki_server_search_docs",
+      "community": 3
+    },
+    {
+      "label": "get_anthropic_client()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L120",
+      "id": "wiki_server_get_anthropic_client",
+      "community": 3
+    },
+    {
+      "label": "QARequest",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L140",
+      "id": "wiki_server_qarequest",
+      "community": 7
+    },
+    {
+      "label": "BaseModel",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "id": "basemodel",
+      "community": 7
+    },
+    {
+      "label": "ask_question()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L145",
+      "id": "wiki_server_ask_question",
+      "community": 3
+    },
+    {
+      "label": "_build_search_answer()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L176",
+      "id": "wiki_server_build_search_answer",
+      "community": 3
+    },
+    {
+      "label": "_extract_relevant_section()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L197",
+      "id": "wiki_server_extract_relevant_section",
+      "community": 5
+    },
+    {
+      "label": "list_documents()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L220",
+      "id": "wiki_server_list_documents",
+      "community": 3
+    },
+    {
+      "label": "get_document()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L227",
+      "id": "wiki_server_get_document",
+      "community": 1
+    },
+    {
+      "label": "download_document()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L237",
+      "id": "wiki_server_download_document",
+      "community": 1
+    },
+    {
+      "label": "get_graph()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L246",
+      "id": "wiki_server_get_graph",
+      "community": 1
+    },
+    {
+      "label": "get_categories()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L254",
+      "id": "wiki_server_get_categories",
+      "community": 1
+    },
+    {
+      "label": "reindex()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L265",
+      "id": "wiki_server_reindex",
+      "community": 5
+    },
+    {
+      "label": "index()",
+      "file_type": "code",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L273",
+      "id": "wiki_server_index",
+      "community": 1
+    },
+    {
+      "label": "SaladLab LLM Wiki \u2014 Prototype Web Server BM25 \uac80\uc0c9 + Claude Q&A + \ubb38\uc11c \ube0c\ub77c\uc6b0\uc800 + \uc9c0\uc2dd \uadf8\ub798\ud504",
+      "file_type": "rationale",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L1",
+      "community": 1,
+      "id": "wiki_server_rationale_1"
     },
     {
       "label": "mcp_server.py",
@@ -114,6 +282,150 @@
       "source_location": "L156",
       "id": "mcp_server_run_server",
       "community": 0
+    },
+    {
+      "label": "index.py",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L1",
+      "id": "api_index_py",
+      "community": 2
+    },
+    {
+      "label": "parse_frontmatter()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L29",
+      "id": "index_parse_frontmatter",
+      "community": 9
+    },
+    {
+      "label": "_extract_category()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L41",
+      "id": "index_extract_category",
+      "community": 9
+    },
+    {
+      "label": "_tokenize()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L48",
+      "id": "index_tokenize",
+      "community": 6
+    },
+    {
+      "label": "_render_md()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L53",
+      "id": "index_render_md",
+      "community": 2
+    },
+    {
+      "label": "load_documents()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L58",
+      "id": "index_load_documents",
+      "community": 9
+    },
+    {
+      "label": "build_search_index()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L86",
+      "id": "index_build_search_index",
+      "community": 6
+    },
+    {
+      "label": "search_docs()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L99",
+      "id": "index_search_docs",
+      "community": 10
+    },
+    {
+      "label": "_extract_relevant_section()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L122",
+      "id": "index_extract_relevant_section",
+      "community": 6
+    },
+    {
+      "label": "_build_search_answer()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L142",
+      "id": "index_build_search_answer",
+      "community": 6
+    },
+    {
+      "label": "QARequest",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L161",
+      "id": "index_qarequest",
+      "community": 7
+    },
+    {
+      "label": "ask_question()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L166",
+      "id": "index_ask_question",
+      "community": 10
+    },
+    {
+      "label": "list_documents()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L209",
+      "id": "index_list_documents",
+      "community": 10
+    },
+    {
+      "label": "get_document()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L216",
+      "id": "index_get_document",
+      "community": 2
+    },
+    {
+      "label": "download_document()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L227",
+      "id": "index_download_document",
+      "community": 2
+    },
+    {
+      "label": "get_graph()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L236",
+      "id": "index_get_graph",
+      "community": 2
+    },
+    {
+      "label": "get_categories()",
+      "file_type": "code",
+      "source_file": "api/index.py",
+      "source_location": "L244",
+      "id": "index_get_categories",
+      "community": 2
+    },
+    {
+      "label": "SaladLab LLM Wiki \u2014 Vercel Serverless Function BM25 \uac80\uc0c9 + \ubb38\uc11c \ube0c\ub77c\uc6b0\uc800 + \uc9c0\uc2dd \uadf8\ub798\ud504",
+      "file_type": "rationale",
+      "source_file": "api/index.py",
+      "source_location": "L1",
+      "community": 2,
+      "id": "index_rationale_1"
     }
   ],
   "links": [
@@ -175,6 +487,402 @@
       "_tgt": "build_index_is_valid_file",
       "source": "rag_mcp_server_build_index_py",
       "target": "build_index_is_valid_file",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_parse_frontmatter",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_parse_frontmatter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L43",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_load_documents",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_load_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_extract_category",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_extract_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_tokenize",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_tokenize",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_build_search_index",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_search_docs",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_search_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L120",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_get_anthropic_client",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_get_anthropic_client",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L140",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_qarequest",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_qarequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L145",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_ask_question",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_ask_question",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L176",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_build_search_answer",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_build_search_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L197",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_extract_relevant_section",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_extract_relevant_section",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_list_documents",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_list_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L227",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_get_document",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_get_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L237",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_download_document",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_download_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L246",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_get_graph",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_get_graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L254",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_get_categories",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_get_categories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L265",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_reindex",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_reindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L273",
+      "weight": 1.0,
+      "_src": "rag_mcp_server_wiki_server_py",
+      "_tgt": "wiki_server_index",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "wiki_server_rationale_1",
+      "_tgt": "rag_mcp_server_wiki_server_py",
+      "source": "rag_mcp_server_wiki_server_py",
+      "target": "wiki_server_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "wiki_server_load_documents",
+      "_tgt": "wiki_server_parse_frontmatter",
+      "source": "wiki_server_parse_frontmatter",
+      "target": "wiki_server_load_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "wiki_server_load_documents",
+      "_tgt": "wiki_server_extract_category",
+      "source": "wiki_server_load_documents",
+      "target": "wiki_server_extract_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_src": "wiki_server_build_search_index",
+      "_tgt": "wiki_server_load_documents",
+      "source": "wiki_server_load_documents",
+      "target": "wiki_server_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_src": "wiki_server_build_search_index",
+      "_tgt": "wiki_server_tokenize",
+      "source": "wiki_server_tokenize",
+      "target": "wiki_server_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_src": "wiki_server_search_docs",
+      "_tgt": "wiki_server_tokenize",
+      "source": "wiki_server_tokenize",
+      "target": "wiki_server_search_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L198",
+      "weight": 1.0,
+      "_src": "wiki_server_extract_relevant_section",
+      "_tgt": "wiki_server_tokenize",
+      "source": "wiki_server_tokenize",
+      "target": "wiki_server_extract_relevant_section",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L266",
+      "weight": 1.0,
+      "_src": "wiki_server_reindex",
+      "_tgt": "wiki_server_build_search_index",
+      "source": "wiki_server_build_search_index",
+      "target": "wiki_server_reindex",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L146",
+      "weight": 1.0,
+      "_src": "wiki_server_ask_question",
+      "_tgt": "wiki_server_search_docs",
+      "source": "wiki_server_search_docs",
+      "target": "wiki_server_ask_question",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L222",
+      "weight": 1.0,
+      "_src": "wiki_server_list_documents",
+      "_tgt": "wiki_server_search_docs",
+      "source": "wiki_server_search_docs",
+      "target": "wiki_server_list_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L158",
+      "weight": 1.0,
+      "_src": "wiki_server_ask_question",
+      "_tgt": "wiki_server_get_anthropic_client",
+      "source": "wiki_server_get_anthropic_client",
+      "target": "wiki_server_ask_question",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L140",
+      "weight": 1.0,
+      "_src": "wiki_server_qarequest",
+      "_tgt": "basemodel",
+      "source": "wiki_server_qarequest",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L161",
+      "weight": 1.0,
+      "_src": "index_qarequest",
+      "_tgt": "basemodel",
+      "source": "basemodel",
+      "target": "index_qarequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L160",
+      "weight": 1.0,
+      "_src": "wiki_server_ask_question",
+      "_tgt": "wiki_server_build_search_answer",
+      "source": "wiki_server_ask_question",
+      "target": "wiki_server_build_search_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "rag_mcp_server/wiki_server.py",
+      "source_location": "L184",
+      "weight": 1.0,
+      "_src": "wiki_server_build_search_answer",
+      "_tgt": "wiki_server_extract_relevant_section",
+      "source": "wiki_server_build_search_answer",
+      "target": "wiki_server_extract_relevant_section",
       "confidence_score": 1.0
     },
     {
@@ -319,6 +1027,342 @@
       "_tgt": "mcp_server_handle_tools_call",
       "source": "mcp_server_handle_tools_call",
       "target": "mcp_server_run_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_parse_frontmatter",
+      "source": "api_index_py",
+      "target": "index_parse_frontmatter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_extract_category",
+      "source": "api_index_py",
+      "target": "index_extract_category",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_tokenize",
+      "source": "api_index_py",
+      "target": "index_tokenize",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_render_md",
+      "source": "api_index_py",
+      "target": "index_render_md",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_load_documents",
+      "source": "api_index_py",
+      "target": "index_load_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_build_search_index",
+      "source": "api_index_py",
+      "target": "index_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L99",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_search_docs",
+      "source": "api_index_py",
+      "target": "index_search_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L122",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_extract_relevant_section",
+      "source": "api_index_py",
+      "target": "index_extract_relevant_section",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L142",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_build_search_answer",
+      "source": "api_index_py",
+      "target": "index_build_search_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L161",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_qarequest",
+      "source": "api_index_py",
+      "target": "index_qarequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L166",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_ask_question",
+      "source": "api_index_py",
+      "target": "index_ask_question",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L209",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_list_documents",
+      "source": "api_index_py",
+      "target": "index_list_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L216",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_get_document",
+      "source": "api_index_py",
+      "target": "index_get_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L227",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_download_document",
+      "source": "api_index_py",
+      "target": "index_download_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L236",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_get_graph",
+      "source": "api_index_py",
+      "target": "index_get_graph",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L244",
+      "weight": 1.0,
+      "_src": "api_index_py",
+      "_tgt": "index_get_categories",
+      "source": "api_index_py",
+      "target": "index_get_categories",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_src": "index_rationale_1",
+      "_tgt": "api_index_py",
+      "source": "api_index_py",
+      "target": "index_rationale_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "index_load_documents",
+      "_tgt": "index_parse_frontmatter",
+      "source": "index_parse_frontmatter",
+      "target": "index_load_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_src": "index_load_documents",
+      "_tgt": "index_extract_category",
+      "source": "index_extract_category",
+      "target": "index_load_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L89",
+      "weight": 1.0,
+      "_src": "index_build_search_index",
+      "_tgt": "index_tokenize",
+      "source": "index_tokenize",
+      "target": "index_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "_src": "index_search_docs",
+      "_tgt": "index_tokenize",
+      "source": "index_tokenize",
+      "target": "index_search_docs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_src": "index_extract_relevant_section",
+      "_tgt": "index_tokenize",
+      "source": "index_tokenize",
+      "target": "index_extract_relevant_section",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L220",
+      "weight": 1.0,
+      "_src": "index_get_document",
+      "_tgt": "index_render_md",
+      "source": "index_render_md",
+      "target": "index_get_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "index_build_search_index",
+      "_tgt": "index_load_documents",
+      "source": "index_load_documents",
+      "target": "index_build_search_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L167",
+      "weight": 1.0,
+      "_src": "index_ask_question",
+      "_tgt": "index_search_docs",
+      "source": "index_search_docs",
+      "target": "index_ask_question",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L211",
+      "weight": 1.0,
+      "_src": "index_list_documents",
+      "_tgt": "index_search_docs",
+      "source": "index_search_docs",
+      "target": "index_list_documents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L149",
+      "weight": 1.0,
+      "_src": "index_build_search_answer",
+      "_tgt": "index_extract_relevant_section",
+      "source": "index_extract_relevant_section",
+      "target": "index_build_search_answer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "api/index.py",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_src": "index_ask_question",
+      "_tgt": "index_build_search_answer",
+      "source": "index_build_search_answer",
+      "target": "index_ask_question",
       "confidence_score": 1.0
     }
   ],

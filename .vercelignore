@@ -1,0 +1,16 @@
+rag_mcp_server/
+.obsidian/
+.gemini/
+.git/
+.agent/
+graphify-out/
+scripts/
+00_Raw/
+00_Staging_탐색/
+Clippings/
+자유프로젝트1/
+venv/
+*.pyc
+__pycache__/
+.env
+saladlab_graph.html
