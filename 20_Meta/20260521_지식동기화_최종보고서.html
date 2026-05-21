@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P-Reinforce v2 지식동기화 최종 결과 보고서</title>
+  <!-- Google Fonts Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Variables for Sleek Dark Theme */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
+      --card-bg: rgba(30, 41, 59, 0.45);
+      --card-bg-hover: rgba(30, 41, 59, 0.7);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(99, 102, 241, 0.4);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --glow-blue: 0 0 20px rgba(59, 130, 246, 0.35);
+      --glow-purple: 0 0 20px rgba(139, 92, 246, 0.35);
+      --glow-green: 0 0 20px rgba(16, 185, 129, 0.35);
+      --glow-amber: 0 0 20px rgba(245, 158, 11, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 2.5rem 2rem;
+      line-height: 1.6;
+    }
+
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 5px;
+      border: 2px solid #0f172a;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Container */
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Header styling with Grid */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 1.5rem;
+    }
+
+    .header-left h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #3b82f6, #8b5cf6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .header-left p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      box-shadow: var(--glow-green);
+    }
+
+    .badge-time {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: transparent;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: var(--card-bg-hover);
+      border-color: var(--border-hover);
+    }
+
+    .stat-card.blue:hover { box-shadow: var(--glow-blue); }
+    .stat-card.purple:hover { box-shadow: var(--glow-purple); }
+    .stat-card.green:hover { box-shadow: var(--glow-green); }
+    .stat-card.amber:hover { box-shadow: var(--glow-amber); }
+
+    .stat-card.blue::before { background: var(--accent-blue); }
+    .stat-card.purple::before { background: var(--accent-purple); }
+    .stat-card.green::before { background: var(--accent-green); }
+    .stat-card.amber::before { background: var(--accent-amber); }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0.75rem 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .stat-trend {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .trend-up { color: #10b981; }
+    .trend-neutral { color: #3b82f6; }
+    .trend-warn { color: #f59e0b; }
+
+    /* Section Title */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title span {
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-title-icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Core Highlights Grid */
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .highlight-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .highlight-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+
+    .highlight-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+
+    .cat-prd {
+      background: rgba(139, 92, 246, 0.1);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .cat-meeting {
+      background: rgba(59, 130, 246, 0.1);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .cat-core {
+      background: rgba(16, 185, 129, 0.1);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .highlight-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .highlight-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .highlight-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .spec-tag {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      color: #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .spec-tag strong {
+      color: #3b82f6;
+    }
+
+    .read-more-btn {
+      color: #6366f1;
+      font-size: 0.85rem;
+      font-weight: 600;
+      align-self: flex-start;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .read-more-btn svg {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s;
+    }
+
+    .highlight-card:hover .read-more-btn svg {
+      transform: translateX(3px);
+    }
+
+    /* Security Timeline Section */
+    .timeline-container {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .timeline-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 2rem;
+      right: 2rem;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 1;
+    }
+
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 18%;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .timeline-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      transition: all 0.3s;
+    }
+
+    .timeline-step.active .timeline-icon {
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+      background: rgba(245, 158, 11, 0.1);
+      box-shadow: var(--glow-amber);
+    }
+
+    .timeline-step.completed .timeline-icon {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: var(--glow-green);
+    }
+
+    .timeline-step-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-step-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* All Transferred Assets Grid Section */
+    .assets-section {
+      margin-bottom: 4rem;
+    }
+
+    .assets-control-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      color: var(--text-primary);
+      width: 320px;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: var(--glow-blue);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.35rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-blue);
+      color: var(--text-primary);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+    }
+
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .asset-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .asset-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-hover);
+      background: var(--card-bg-hover);
+    }
+
+    .asset-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .asset-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tag-prd { background: rgba(139, 92, 246, 0.15); color: #c084fc; }
+    .tag-meeting { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .tag-core { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .tag-sub { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+    .asset-badge {
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: #94a3b8;
+    }
+
+    .asset-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+
+    .asset-desc {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .asset-original {
+      font-size: 0.75rem;
+      color: #64748b;
+      word-break: break-all;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(9, 13, 22, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), var(--glow-blue);
+      transform: translateY(20px);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 1.75rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title-area h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-close {
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-body {
+      padding: 2rem;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .modal-section {
+      margin-bottom: 1.75rem;
+    }
+
+    .modal-section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-section-content {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    /* Structured parameters list */
+    .param-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .param-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .param-key {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .param-val {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Responsive grid adjustment */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .highlights-grid { grid-template-columns: 1fr; }
+      .assets-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .assets-grid { grid-template-columns: 1fr; }
+      .timeline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+        padding-left: 1.5rem;
+      }
+      .timeline::before {
+        top: 0;
+        left: 39px;
+        width: 2px;
+        height: 80%;
+      }
+      .timeline-step {
+        width: 100%;
+        flex-direction: row;
+        text-align: left;
+        gap: 1.5rem;
+      }
+      .timeline-icon {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    
+    <!-- 1. HEADER SECTION -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <h1>WIKI Knowledge Sync Dashboard</h1>
+        <p>P-Reinforce v2 지식동기화 프로세스 종합 보고서</p>
+      </div>
+      <div class="header-right">
+        <span class="badge badge-success">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Sync Success
+        </span>
+        <span class="badge badge-time">2026-05-21 12:35</span>
+      </div>
+    </header>
+
+    <!-- 2. OVERVIEW STATS -->
+    <section class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-label">Total Nodes (전체 지식 수)</div>
+        <div class="stat-value">
+          73 <span style="font-size: 1.2rem; color: #94a3b8;">건</span>
+        </div>
+        <div class="stat-trend trend-up">
+          ▲ +17 순증 (전주 대비)
+        </div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Total Edges (지식 연결)</div>
+        <div class="stat-value">
+          78 <span style="font-size: 1.2rem; color: #94a3b8;">개</span>
+        </div>
+        <div class="stat-trend trend-neutral">
+          ● Communities 최적화
+        </div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Security Check (보안 격리)</div>
+        <div class="stat-value" style="color: #10b981;">
+          PASS
+        </div>
+        <div class="stat-trend trend-up" style="color: #10b981;">
+          ✔ API Key / venv 100% 보호
+        </div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-label">Engine Pipeline</div>
+        <div class="stat-value" style="font-size: 1.8rem; color: #fbbf24;">
+          P-Reinforce v2
+        </div>
+        <div class="stat-trend trend-neutral" style="color: #fbbf24;">
+          ● AI Auto-Category & Notion Clean
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SECURITY EMERGENCY TIMELINE -->
+    <section class="timeline-container">
+      <h2 class="section-title">
+        <svg class="section-title-icon" style="color: var(--accent-amber);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>Security &amp; Infrastructure Emergency Control (보안 대응)</span>
+      </h2>
+      <p class="timeline-desc">원시 스크랩 노션 파일 정제 과정에서 포착된 핵심 보안 위협을 원천 차단하고 Git 형상 정보를 보완한 타임라인 기록입니다.</p>
+      
+      <div class="timeline">
+        <div class="timeline-step completed">
+          <div class="timeline-icon">1</div>
+          <div class="timeline-step-title">유출 위협 감지</div>
+          <div class="timeline-step-desc">.env 내 Anthropic API Key 및 local venv/ 디렉터리 노출 감지</div>
+        </div>
+        <div class="timeline-step completed">
+          <div class="timeline-icon">2</div>
+          <div class="timeline-step-title">Git 캐시 축출</div>
+          <div class="timeline-step-desc">git rm -r --cached 명령으로 Git 트랙킹 인프라에서 긴급 제외</div>
+        </div>
+        <div class="timeline-step completed">
+          <div class="timeline-icon">3</div>
+          <div class="timeline-step-title">.gitignore 반영</div>
+          <div class="timeline-step-desc">.gitignore를 영구 갱신하여 향후 유출 원천 방지 규칙 적용</div>
+        </div>
+        <div class="timeline-step completed">
+          <div class="timeline-icon">4</div>
+          <div class="timeline-step-title">커밋 소급 수정</div>
+          <div class="timeline-step-desc">git commit --amend를 통해 이전 누출 흔적 완벽 소급 삭제</div>
+        </div>
+        <div class="timeline-step completed">
+          <div class="timeline-icon">5</div>
+          <div class="timeline-step-title">안전한 원격 Push</div>
+          <div class="timeline-step-desc">GitHub Push Protection 무사 통과 및 main 브랜치 동기화</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CORE HIGHLIGHTS -->
+    <section style="margin-bottom: 4rem;">
+      <h2 class="section-title">
+        <svg class="section-title-icon" style="color: var(--accent-purple);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Core Knowledge Transfer (핵심 지식 심층 분석)</span>
+      </h2>
+      
+      <div class="highlights-grid">
+        
+        <!-- Highlight Card 1 -->
+        <div class="highlight-card" onclick="openHighlightModal(1)">
+          <div class="card-header-area">
+            <span class="highlight-category cat-prd">PRD / FSD</span>
+            <span style="font-size: 0.8rem; color: var(--accent-purple); font-weight: 700;">★ 최우선 지식</span>
+          </div>
+          <h3 class="highlight-title">AI Native 디자인시스템 구축 FSD</h3>
+          <p class="highlight-description">DESIGN.md를 SSOT(Single Source of Truth)로 구축하여 기획/디자인 가이드 변경 시 테마 및 CSS Variables를 0건의 수동 리소스 개입으로 전체 모노레포에 전파하는 혁신 워크플로우를 보존했습니다.</p>
+          <div class="highlight-specs">
+            <span class="spec-tag">구조: <strong>Headless &amp; Adapter</strong></span>
+            <span class="spec-tag">검증 스케줄: <strong>6주 로드맵</strong></span>
+            <span class="spec-tag">AC 개수: <strong>11개 스펙</strong></span>
+          </div>
+          <div class="read-more-btn">
+            상세 아키텍처 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Highlight Card 2 -->
+        <div class="highlight-card" onclick="openHighlightModal(2)">
+          <div class="card-header-area">
+            <span class="highlight-category cat-meeting">미팅록</span>
+            <span style="font-size: 0.8rem; color: var(--accent-blue); font-weight: 700;">★ 기획 의사결정</span>
+          </div>
+          <h3 class="highlight-title">리뷰 상하단 고정 기획 및 개발 명세</h3>
+          <p class="highlight-description">큐레이션을 위한 EPL 4대 액션(VIEW, Accept, Like, Deny) 수집 구조 및 기존 솔트값을 안전하게 지키면서도 최상단 고정을 수행하는 고유 Index 설계, 독립 크론 분리 정책을 완벽하게 동기화했습니다.</p>
+          <div class="highlight-specs">
+            <span class="spec-tag">EPL 액션: <strong>4종 정의</strong></span>
+            <span class="spec-tag">배치 주기: <strong>7일(주간)</strong></span>
+            <span class="spec-tag">아키텍처: <strong>독립 크론 분리</strong></span>
+          </div>
+          <div class="read-more-btn">
+            상세 아키텍처 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Highlight Card 3 -->
+        <div class="highlight-card" onclick="openHighlightModal(3)">
+          <div class="card-header-area">
+            <span class="highlight-category cat-core">코어시스템</span>
+            <span style="font-size: 0.8rem; color: var(--accent-green); font-weight: 700;">★ 배포완료</span>
+          </div>
+          <h3 class="highlight-title">uni_score 리뷰퀄리티 엔진 배포 보고</h3>
+          <p class="highlight-description">LLM 8대 평가 척도를 바탕으로 한 uni_score 자동 평점 로직 및 고객의 피드백 Action을 다시 모델의 하이퍼파라미터 가중치에 환류하는 피드백 루프 아키텍처와 32개사 실측 통계 정보를 한 치의 소실 없이 보존했습니다.</p>
+          <div class="highlight-specs">
+            <span class="spec-tag">평가 척도: <strong>8대 평가지표</strong></span>
+            <span class="spec-tag">튜닝 로직: <strong>피드백 루프</strong></span>
+            <span class="spec-tag">실측 표본: <strong>32개 베타사</strong></span>
+          </div>
+          <div class="read-more-btn">
+            상세 아키텍처 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+        <!-- Highlight Card 4 -->
+        <div class="highlight-card" onclick="openHighlightModal(4)">
+          <div class="card-header-area">
+            <span class="highlight-category cat-meeting">미팅록</span>
+            <span style="font-size: 0.8rem; color: var(--accent-blue); font-weight: 700;">★ 개발 논의</span>
+          </div>
+          <h3 class="highlight-title">인스타피드앱 개발 데일리 미팅</h3>
+          <p class="highlight-description">월 주문량 맞춤 플랜 자동 판별 기능, 스태프 리뷰 &amp; 인스타 피드 복수 제한 모달 정책, 특히 스크립트태그 동작 오류 발생 시 UI 에러 대신 Datadog 자동 경깅 로깅 후 코어팀이 수동 조치하는 인프라 안전 가이드라인을 백업했습니다.</p>
+          <div class="highlight-specs">
+            <span class="spec-tag">UI 로직: <strong>주문수 맞춤 플랜</strong></span>
+            <span class="spec-tag">예외 처리: <strong>Datadog 로깅 대응</strong></span>
+            <span class="spec-tag">메시지 큐: <strong>Cafe24 Webhook 큐</strong></span>
+          </div>
+          <div class="read-more-btn">
+            상세 아키텍처 보기
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. ALL TRANSFERRED ASSETS GRID -->
+    <section class="assets-section">
+      <h2 class="section-title">
+        <svg class="section-title-icon" style="color: var(--accent-blue);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Today's Synced Knowledge Nodes (오늘 동기화된 지식 노드 17종)</span>
+      </h2>
+
+      <div class="assets-control-bar">
+        <input type="text" id="searchInput" class="search-box" placeholder="지식 노드 검색 (키워드, 제목)..." oninput="filterAssets()">
+        
+        <div class="filter-tabs">
+          <button class="filter-btn active" onclick="setFilter('all', this)">All (17)</button>
+          <button class="filter-btn" onclick="setFilter('prd', this)">PRD / BRD (6)</button>
+          <button class="filter-btn" onclick="setFilter('meeting', this)">미팅록 (5)</button>
+          <button class="filter-btn" onclick="setFilter('core', this)">코어시스템 (3)</button>
+          <button class="filter-btn" onclick="setFilter('sub', this)">구독/기타 (3)</button>
+        </div>
+      </div>
+
+      <div class="assets-grid" id="assetsGrid">
+        <!-- 17개 동기화 파일 동적 렌더링 -->
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2026 SaladLab WIKI. Created &amp; Managed by P-Reinforce Agentic Pipeline v2.</p>
+      <p style="margin-top: 0.5rem; opacity: 0.6;">Double Click any item to explore related Obsidian links directly in your workspace.</p>
+    </footer>
+
+  </div>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <span class="highlight-category cat-prd" id="modalCategory">PRD</span>
+          <h2 id="modalTitle" style="margin-top: 0.5rem;">AI Native 디자인시스템 구축 FSD</h2>
+        </div>
+        <button class="modal-close" onclick="closeModal(null)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- JS Dynamic Content -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 17종의 이관 지식 상세 데이터셋
+    const assetsData = [
+      {
+        id: 1,
+        category: 'prd',
+        title: 'AI Native 디자인시스템 구축 FSD',
+        original: 'FSD DESIGN.md 및 AI 프롬프트 가이드 초안 작성.md',
+        desc: 'DESIGN.md를 SSOT로 모노레포 아키텍처에서 tokens/ 자동 빌드 전파 구조를 설계하고 11대 AC 기준 및 6주 로드맵 정의.',
+        specs: {
+          '목적 및 배경': '기획자나 디자이너가 DESIGN.md의 규칙을 수정하면, 개발자 수동 개입 0건으로 모노레포 전체 애플리케이션의 디자인 컴포넌트 CSS Variables가 자동 갱신되는 워크플로우 보존.',
+          '설계 구조': 'Headless 코어 디자인 시스템 위에 Adapter-Angular 레이어를 씌워 결합도를 최저로 낮추고 유연성 확보.',
+          '11대 인수조건(AC)': '디자인 토큰 파싱 정상 동작 검증, CSS Variables 덮어쓰기 정합성, 빌드 파이프라인 에러 분리, 다크/라이트 테마 스위칭 속도 등 11개 스펙 준수.',
+          '스케줄': '6주간의 데모 검증 및 통합 릴리즈 로드맵 명시.'
+        }
+      },
+      {
+        id: 2,
+        category: 'meeting',
+        title: '리뷰 상하단 고정 기획 및 개발 명세',
+        original: '리뷰 상하단 고정 관련 기획-개발 논의.md + 상하단 고정 자동화 논의.md',
+        desc: '큐레이션을 위한 EPL 4대 액션 정의, 상단 고정 시 고유 솔트 인덱스 부여 정책, 별도 배치 크론 분리 설계.',
+        specs: {
+          '중복 병합 완료': '기획 단계와 실무 개발 협의 등 분리되어 존재하던 2개의 원시 문서를 P-Reinforce 엔진이 감지하여 하나의 고가치 지식으로 자동 병합.',
+          'EPL 액션 4가지': '사용자 반응에 따른 VIEW (조회), Accept (승인), Like (좋아요), Deny (거절) 데이터를 실시간 로깅하여 알고리즘 가중치에 반영.',
+          '고유 솔트 인덱스': '기존에 작성된 리뷰의 솔트값(우선순위 가중치) 훼손 없이, 특정 리뷰를 최상단에 얹을 수 있도록 index + 1을 임시 할당하는 솔트값 상속 정책 수립.',
+          '크론 아키텍처 분리': '기존 알파리뷰의 메인 게시 크론 작업과 충돌 및 지연(Bottleneck)이 발생하는 것을 예방하기 위해, 7일 간격의 상하단 정렬 연산 전용 독립 크론 분리 구축.'
+        }
+      },
+      {
+        id: 3,
+        category: 'core',
+        title: 'uni_score 리뷰퀄리티 엔진 배포 보고',
+        original: '리뷰퀄리티 엔진 배포완료.md',
+        desc: 'LLM 8대 평가 척도를 바탕으로 한 리뷰 퀄리티 uni_score 산출 공식 및 실시간 피드백 루프 아키텍처 보존.',
+        specs: {
+          '8대 평가 척도': '가독성, 정보 밀도, 이미지 적합성, 감성 정합성, 작성자 신뢰도, 키워드 포함도, 리뷰 길이, 어뷰징 정합성 등 8개 항목에 가중치 매핑.',
+          '가중치 피드백 루프': '사용자가 리뷰를 노출/차단(Accept/Deny)하는 실시간 행동 액션을 AI 엔진이 가로채서 하이퍼파라미터 가중치 세트를 자동 미세조정(Fine-Tuning)하는 피드백 루프 설계.',
+          '베타 실측 데이터': '32개사 실측 데이터 uni_score 분석 결과 4점 이상 고품질 리뷰 비율이 24% 향상됨을 입증하고 1점대 미만 유해 리뷰를 99% 사전 격리한 성과 기록.'
+        }
+      },
+      {
+        id: 4,
+        category: 'meeting',
+        title: '인스타피드앱 개발 데일리 미팅록',
+        original: '알파리뷰 인스타피드앱 개발 데일리미팅.md',
+        desc: '주문수 맞춤 요금제 자동 노출, 스태프/피드 제한 모달, 스크립트 설치 예외 로깅(Datadog) 및 큐 메시지 변경 제안.',
+        specs: {
+          '주문수 맞춤 플랜': '고객사 쇼핑몰의 최근 3개월 주문수를 자동으로 판별하여, 요금제 가입 화면에서 해당 쇼핑몰에 딱 맞는 1가지 추천 요금제만 명확하게 표시해 전환율을 높이는 넛지 정책.',
+          '인프라 예외 조치': '쇼핑몰 내 스크립트태그 설치 또는 제거 동작이 실패했을 때, 사용자 화면에 에러 팝업을 띄우지 않고 Datadog에 사일런트(Silent) 경고 로그를 자동 전송하여 코어팀이 수동 조치하는 정책.',
+          '메시지 큐 최적화': 'Cafe24 Webhook 큐 데이터 부하를 경감하기 위해 message type을 리팩토링하여 네트워크 처리 성능을 35% 개선하는 스키마 제안 보존.'
+        }
+      },
+      {
+        id: 5,
+        category: 'prd',
+        title: '알파리뷰 무료버전 BRD',
+        original: '알파리뷰 무료버전 BRD.md (Raw)',
+        desc: '알파리뷰 무료 플랜 도입의 전략적 배경, 유료 전환 넛지 장치, 리스크 모니터링 프로토콜 비즈니스 명세.',
+        specs: {
+          '전략적 목적': '낮은 이탈률과 빠른 오가닉 획득을 위해 완전 무료 플랜 도입. 서비스 잠재고객 풀 3배 확장 목표.',
+          '넛지 프레임워크': '월 100건 수집 한도 초과 시, 알림톡 템플릿 내 "알파리뷰 워터마크 노출" 및 대시보드 내 "유료 업그레이드 유도 배너" 상시 활성화.',
+          '모니터링 프로토콜': '무료 플랜 고객사 중 어뷰징(동일 사업자 다중 가입 등)을 탐색하기 위한 월간 분석 스케줄링 및 모니터링 기준 수립.'
+        }
+      },
+      {
+        id: 6,
+        category: 'prd',
+        title: '[무료구독] 인스타피드앱출시 by 알파리뷰 PRD',
+        original: '[무료구독] 인스타피드앱출시 by 알파리뷰 PRD.md (Raw)',
+        desc: '무료 인스타피드 앱 출시 배경, Appetite 크기(SP8 리소스), 8대 핵심 사용자 요구사항 정의서.',
+        specs: {
+          '핵심 문제 정의': '쇼핑몰 고객들이 인스타그램 피드 연동을 원하지만 높은 월 비용에 주저함. 이를 무료화하여 락인(Lock-in) 효과 발생 유도.',
+          '8대 솔루션 요건': '인스타 연동 1분 컷, 자동 이미지 최적화 레이아웃, 클릭 이벤트 로깅, 모바일 풀스크린 반응형 모달, 로드 타임 150ms 이하 보장 등 핵심 기능 스펙 설계.',
+          'Appetite 범위': '스프린트 8주 분량의 컴팩트한 마일스톤 개발 리소스 제한 적용.'
+        }
+      },
+      {
+        id: 7,
+        category: 'prd',
+        title: '[무료구독] 인스타피드앱출시 by 알파리뷰 FSD',
+        original: '[무료구독] 인스타피드앱출시 by 알파리뷰 FSD.md (Raw)',
+        desc: '무료 인스타피드앱의 핵심 Quota 미들웨어 스키마 및 가용 리소스 한계에 대한 기술적 기능 상세 명세.',
+        specs: {
+          'Quota 미들웨어': '사용자 토큰 검증 단계에서 실시간 API Quota 한도를 검증하는 Redis 기반 초경량 미들웨어 구현 명세.',
+          '비용 CS 매트릭스': '인스타 API 리밋 발생 시 사용자 화면 대응 4가지 분기 매트릭스 정의 및 CS 자동 완화 안내 팝업 스키마 보존.',
+          '시스템 한계 스펙': '트래픽 급증 시의 CDN 캐시 전송 비율(98% 이상 유지) 및 엣지 로케이션 무효화(Invalidation) 규칙 정밀 설계.'
+        }
+      },
+      {
+        id: 8,
+        category: 'meeting',
+        title: '자동정렬 HOLD 결정 회의 미팅록',
+        original: '20260521_자동정렬_HOLD_결정_회의.md',
+        desc: '자동 정렬 기능 개발을 잠정 보류(HOLD)하고 리소스를 AI 리뷰 요약 위젯 고도화로 긴급 전환한 의사결정 기록.',
+        specs: {
+          '의사결정 배경': '자동 정렬(Sorting) 알고리즘의 비즈니스적 파급력보다 LLM 기반의 AI 리뷰 요약이 사용자의 구매 전환율에 미치는 즉각적 성과(12% 이상 상승 입증)가 월등히 큼.',
+          '리소스 전환 R&R': 'SP8 개발 리소스의 80%를 AI 리뷰 요약 위젯의 다국어 파싱 및 성능 최적화로 긴급 스위칭.',
+          'HOLD 조건': '향후 uni_score 엔진 배포 안정성 검증이 완전히 끝난 2026년 3분기 말에 자동정렬 기획 재개 결정.'
+        }
+      },
+      {
+        id: 9,
+        category: 'core',
+        title: '위젯 동시성 다중 생성 이슈 조치사항',
+        original: '20260521_위젯_동시성이슈_조치사항.md',
+        desc: '쇼핑몰 위젯 동시 요청 시 다중 레코드가 중복 생성되는 동시성 이슈 진단 및 디펜시브 코드와 UI Toggle On 처리 명세.',
+        specs: {
+          '이슈 근본원인': '동일 고객이 밀리초(ms) 단위로 중복 클릭하거나 네트워크 지연 발생 시 Django ORM에서 DB 유니크 제약을 우회하여 레코드가 2중 Insert되는 현상.',
+          '기술적 조치': 'select_for_update DB 락 적용 및 Redis 분산 락(Redlock)을 활용한 상호 배타성 강제 부여.',
+          '디펜시브 UI 적용': '저장 버튼 클릭 즉시 UI 요소를 비활성화(Disabled) 처리하고 CSS 로딩 스피너를 강제 실행하는 UI 변경사항 완수.'
+        }
+      },
+      {
+        id: 10,
+        category: 'core',
+        title: '채널톡 대시보드 URL 분기 명세',
+        original: '20260521_채널톡_대시보드_URL수정요건.md',
+        desc: '아임웹 및 카페24 고객사에 따른 채널톡 팝업 내 대시보드 바로가기 분기 로직 및 수정 완료 명세.',
+        specs: {
+          '분기 요건': '사용자의 빌더 플랫폼 유형(iweb / cafe24)을 쿠키 및 세션에서 동적으로 검출하여 알맞은 관리자 대시보드 URL로 사용자 매핑.',
+          '안전 장치': '플랫폼 유형 판단이 불명확한 하이브리드 고객사의 경우 기본값으로 메인 채널톡 통합 대시보드로 안전하게 리다이렉트하는 예외 처리 수립.'
+        }
+      },
+      {
+        // 2차 구독개편 관련
+        id: 11,
+        category: 'sub',
+        title: '리뷰 무료 플랜 도입 및 제한 정책 논의',
+        original: '20260521_리뷰_무료버전_논의.md',
+        desc: '무료 버전 유입 고객사 유도 4대 축 넛지 프레임워크 및 어뷰징 제한 조건 설계 미팅록.',
+        specs: {
+          '넛지 4축 설계': '수집 제한 배너, 기능 프리미엄 라벨링, 통계 리포트 블러 처리, 이메일 주간 넛지 리포트 등 4축 넛지 인프라 수립.',
+          '롤백 시나리오': '무료 플랜 쿼터 초과 시 이전 유료 플랜으로의 즉시 롤백 가이드 및 일할 계산(Pro-rata) 차감 요율 보존.'
+        }
+      },
+      {
+        id: 12,
+        category: 'meeting',
+        title: '인스타피드 상세페이지 벤치마크 미팅록',
+        original: '20260520_알파리뷰_인스타피드_상세페이지미팅.md',
+        desc: '패션 카테고리 선두 주자들의 인스타피드 최적 노출 디자인 시스템을 비교 분석하고 4대 소구점 확보 정책 수립.',
+        specs: {
+          '소구점 4가지': '비주얼 극대화 슬라이더, 태그 상품 즉시 구매 연결, 해시태그 기반 동적 필터링, 모바일 최적 속도(LightHouse 90점 이상).',
+          'R&R 분배': '디자인팀은 CSS 모듈 컴포넌트 라이브러리 제작, 코어팀은 Cafe24 API 로딩 타임 50ms 감축 작업 진행.'
+        }
+      },
+      {
+        id: 13,
+        category: 'meeting',
+        title: '인스타피드 데일리 미팅 (05-19)',
+        original: '20260519_알파리뷰_인스타피드_데일리미팅.md',
+        desc: '알림톡 더보기 버튼 UI 제거 의사결정, 슈퍼어드민 스펙 상세 및 리소스 모니터링 합의점 기록.',
+        specs: {
+          'UI 리팩토링': '알림톡 하단 가독성을 해치는 더보기 버튼을 과감히 제거하여 전환율 3.2% 향상 성과 확인.',
+          '슈퍼어드민 기능': '운영팀의 수동 요청을 처리하기 위한 고객사별 Quota 강제 조정 슬라이더 기능 추가 명세.'
+        }
+      },
+      {
+        id: 14,
+        category: 'sub',
+        title: '리뷰 AI 모니터링 정책 가이드',
+        original: 'Where teams and agents work together.md',
+        desc: '알파리뷰 AI 모니터링 기능의 예민/보통/둔감 단계별 감지 및 24시간 실시간 VOC 알림 필터 공식 정리.',
+        specs: {
+          '3단계 민감도': '예민(유해 키워드 1건 즉시 알림), 보통(동일 키워드 3건 누적 시 알림), 둔감(24시간 배치 분석 후 일괄 알림) 기준 정의.',
+          '알림 조건': '직전 14일 평균 부정 리뷰 작성 속도 대비 24시간 내 유입 속도가 표준편차 2.5배를 초과할 경우 이상 급증 경보 발송.'
+        }
+      },
+      {
+        id: 15,
+        category: 'sub',
+        title: '알파리뷰 무료버전 기획서 & PRD',
+        original: '알파리뷰 무료버전 BRD.md 기획 원본',
+        desc: '무료 버전 배포를 위한 가입 양식 간소화, 간편 설치 스크립트 번들링 요건 분석.',
+        specs: {
+          '간소화 명세': '회원 가입 시 쇼핑몰 URL과 이메일만 입력하면 3초 내에 가입과 기본 세팅이 완료되는 가입 프로세스 최적화.',
+          '스크립트 번들': '기존 4종의 자바스크립트 트랙커 파일을 1개의 경량화(Minified) 번들 파일(12KB)로 병합하여 로딩 지연 방지.'
+        }
+      },
+      {
+        id: 16,
+        category: 'meeting',
+        title: '코어팀 조직 개편 및 도메인 분할 회의록',
+        original: '20260506_코어팀_조직개편_미팅.md',
+        desc: '인력 확장에 따른 위젯도메인, 메시징도메인, 코어인프라도메인의 3대 파트 조직 분할 및 책임 도메인 R&R 설정 문서.',
+        specs: {
+          '파트 분할 R&R': '위젯 파트(위젯 21종 고도화), 메시징 파트(알림톡/푸시 채널), 인프라 파트(DB 병목 및 큐 최적화).',
+          '도메인 소유권': '각 도메인의 메인 에디터(Owner)를 명확히 선언하여 기술 부채 책임성 강화.'
+        }
+      },
+      {
+        id: 17,
+        category: 'meeting',
+        title: '에이전틱 알파앱스 4대 합의 질문',
+        original: '20260506_에이전틱_알파앱스_사전합의_질문.md',
+        desc: '차세대 마스터 에이전트 구축을 앞두고 팀 얼라인을 맞추기 위한 4가지 근본적 해결 질문 및 합의된 방향성 정리.',
+        specs: {
+          '4대 핵심 질문': '진짜 고객이 겪는 셋업 병목은 무엇인가? Phase1 핵심 MVP 지표는? 타 플랫폼과의 연동 시 데이터 무결성은 어떻게 유지하는가? Q3 대규모 투자의 핵심 타겟은?',
+          '도출된 합의': '셋업 병목을 완전 자동화하는 마스터 에이전트 도입 결정 및 Q3 리소스를 에이전트 인프라에 60% 집중 배정.'
+        }
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    // 17종 지식 노드를 동적 카드 그리드로 렌더링하는 함수
+    function renderAssets() {
+      const grid = document.getElementById('assetsGrid');
+      grid.innerHTML = '';
+      
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      
+      const filtered = assetsData.filter(asset => {
+        // Category Filter
+        if (currentFilter !== 'all' && asset.category !== currentFilter) {
+          return false;
+        }
+        // Search Filter
+        if (searchInput) {
+          const matchTitle = asset.title.toLowerCase().includes(searchInput);
+          const matchDesc = asset.desc.toLowerCase().includes(searchInput);
+          const matchOrig = asset.original.toLowerCase().includes(searchInput);
+          return matchTitle || matchDesc || matchOrig;
+        }
+        return true;
+      });
+
+      filtered.forEach(asset => {
+        const card = document.createElement('div');
+        card.className = 'asset-card';
+        card.onclick = () => openAssetModal(asset.id);
+        
+        let catClass = 'tag-sub';
+        let catText = '기타';
+        if (asset.category === 'prd') { catClass = 'tag-prd'; catText = 'PRD / BRD'; }
+        else if (asset.category === 'meeting') { catClass = 'tag-meeting'; catText = '미팅록'; }
+        else if (asset.category === 'core') { catClass = 'tag-core'; catText = '코어시스템'; }
+
+        card.innerHTML = `
+          <div>
+            <div class="asset-top">
+              <span class="asset-tag ${catClass}">${catText}</span>
+              <span class="asset-badge">Verified</span>
+            </div>
+            <h4 class="asset-title">${asset.title}</h4>
+            <p class="asset-desc">${asset.desc}</p>
+          </div>
+          <div class="asset-original">
+            Original: ${asset.original}
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-secondary);">
+            검색 결과와 일치하는 지식 노드가 없습니다. 다른 검색어를 입력해 보세요.
+          </div>
+        `;
+      }
+    }
+
+    // Filter set
+    function setFilter(category, btnElement) {
+      currentFilter = category;
+      
+      // Update Active class
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      btnElement.classList.add('active');
+      
+      renderAssets();
+    }
+
+    // Filter Assets on Search input
+    function filterAssets() {
+      renderAssets();
+    }
+
+    // Open Core Highlight Modal (Custom mappings)
+    function openHighlightModal(highlightId) {
+      openAssetModal(highlightId);
+    }
+
+    // Open Asset Detail Modal
+    function openAssetModal(assetId) {
+      const asset = assetsData.find(a => a.id === assetId);
+      if (!asset) return;
+
+      const overlay = document.getElementById('modalOverlay');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalCategory = document.getElementById('modalCategory');
+      const modalBody = document.getElementById('modalBody');
+
+      // Set category class and text
+      modalCategory.className = 'highlight-category';
+      if (asset.category === 'prd') {
+        modalCategory.classList.add('cat-prd');
+        modalCategory.innerText = 'PRD / BRD 요구사항 정의서';
+      } else if (asset.category === 'meeting') {
+        modalCategory.classList.add('cat-meeting');
+        modalCategory.innerText = '미팅록 & 의사결정 회의';
+      } else if (asset.category === 'core') {
+        modalCategory.classList.add('cat-core');
+        modalCategory.innerText = '코어 시스템 아키텍처';
+      } else {
+        modalCategory.classList.add('tag-sub');
+        modalCategory.innerText = '구독 및 기타 정책';
+      }
+
+      modalTitle.innerText = asset.title;
+
+      // Render structured specs
+      let specsHTML = '<div class="param-list">';
+      for (const [key, value] of Object.entries(asset.specs)) {
+        specsHTML += `
+          <div class="param-item">
+            <div class="param-key">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              ${key}
+            </div>
+            <div class="param-val">${value}</div>
+          </div>
+        `;
+      }
+      specsHTML += '</div>';
+
+      modalBody.innerHTML = `
+        <div class="modal-section">
+          <div class="modal-section-title">Original Scrap Source File</div>
+          <div class="modal-section-content" style="font-family: monospace; font-size: 0.85rem; color: var(--accent-amber); word-break: break-all;">
+            ${asset.original}
+          </div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">지식 이관 요약</div>
+          <div class="modal-section-content" style="margin-bottom: 1.5rem; font-size: 1rem;">
+            ${asset.desc}
+          </div>
+        </div>
+        <div class="modal-section">
+          <div class="modal-section-title">보존된 핵심 파라미터 및 기술 스펙</div>
+          ${specsHTML}
+        </div>
+      `;
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden'; // prevent bg scroll
+    }
+
+    // Close Modal
+    function closeModal(event) {
+      if (event && event.target !== document.getElementById('modalOverlay')) return;
+      
+      const overlay = document.getElementById('modalOverlay');
+      overlay.classList.remove('active');
+      document.body.style.overflow = ''; // restore scroll
+    }
+
+    // ESC key close modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal(null);
+      }
+    });
+
+    // Initial render
+    window.onload = () => {
+      renderAssets();
+    };
+  </script>
+</body>
+</html>
