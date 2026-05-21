@@ -1,7 +1,7 @@
 # Graph Report - .  (2026-05-21)
 
 ## Corpus Check
-- 5 files · ~216,068 words
+- 5 files · ~216,077 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -40,7 +40,7 @@
   rag_mcp_server/wiki_server.py → rag_mcp_server/wiki_server.py  _Bridges community 8 → community 3_
 - `_extract_relevant_section()` --calls--> `_tokenize()`  [EXTRACTED]
   rag_mcp_server/wiki_server.py → rag_mcp_server/wiki_server.py  _Bridges community 8 → community 5_
-- `search_docs()` --calls--> `_tokenize()`  [EXTRACTED]
+- `_extract_relevant_section()` --calls--> `_tokenize()`  [EXTRACTED]
   api/index.py → api/index.py  _Bridges community 6 → community 9_
 - `build_search_index()` --calls--> `load_documents()`  [EXTRACTED]
   api/index.py → api/index.py  _Bridges community 10 → community 6_
@@ -73,7 +73,7 @@ Nodes (4): ask_question(), _build_search_answer(), _extract_relevant_section(), 
 
 ### Community 6 - "Community 6"
 Cohesion: 0.5
-Nodes (4): _build_search_answer(), build_search_index(), _extract_relevant_section(), _tokenize()
+Nodes (4): build_search_index(), list_documents(), search_docs(), _tokenize()
 
 ### Community 7 - "Community 7"
 Cohesion: 0.67
@@ -85,7 +85,7 @@ Nodes (3): list_documents(), search_docs(), _tokenize()
 
 ### Community 9 - "Community 9"
 Cohesion: 0.67
-Nodes (3): ask_question(), list_documents(), search_docs()
+Nodes (3): ask_question(), _build_search_answer(), _extract_relevant_section()
 
 ### Community 10 - "Community 10"
 Cohesion: 0.67

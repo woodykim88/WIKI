@@ -1,7 +1,7 @@
 # WIKI Index (Table of Contents)
 
 > P-Reinforce 에이전트가 관리하는 영속적 위키의 목차입니다.
-> 최종 갱신: 2026-05-21 · 전체 문서: 73건
+> 최종 갱신: 2026-05-21 · 전체 문서: 74건
 > 📊 **[2026-05-21 지식동기화 최종 결과 시각화 보고서 (HTML)](file:///Users/jongwookim/Library/CloudStorage/BeeStation-MyBeeStationPlus/옵시디언%20(개인)/10_Projects/WIKI/20_Meta/20260521_지식동기화_최종보고서.html)**
 
 
@@ -115,6 +115,7 @@
 - [[AI 크롤러 동작 및 JS 렌더링 실증]] — GPTBot/ClaudeBot/PerplexityBot JS 미실행 실증, CSR 위젯의 AI 가시성 문제
 - [[GEO 학술 연구 및 논문 정리]] — Aggarwal et al. KDD 2024 GEO 논문, AI 인용 편향 연구, 구조화 데이터 효과 수치
 - [[리뷰 구조화 데이터 채택 현황]] — 글로벌/한국 Schema.org Review 마크업 채택률, 플랫폼별 현황
+- [[역직구_해외유저_국내숍_신사업_전략]] — K뷰티 역직구 SWOT, 3가지 포지션 옵션, 실전 운영자 Q&A(물류·통관·결제·CS), Exportability 스코어 아이디어 (2026-05-21)
 
 ### 미팅록
 - [[20260506_코어팀_조직개편_미팅]] — 코어팀 인력 확장, 도메인 재분배, 조직 분할 권고

@@ -345,7 +345,7 @@
       "source_file": "api/index.py",
       "source_location": "L99",
       "id": "index_search_docs",
-      "community": 9
+      "community": 6
     },
     {
       "label": "_extract_relevant_section()",
@@ -353,7 +353,7 @@
       "source_file": "api/index.py",
       "source_location": "L122",
       "id": "index_extract_relevant_section",
-      "community": 6
+      "community": 9
     },
     {
       "label": "_build_search_answer()",
@@ -361,7 +361,7 @@
       "source_file": "api/index.py",
       "source_location": "L142",
       "id": "index_build_search_answer",
-      "community": 6
+      "community": 9
     },
     {
       "label": "QARequest",
@@ -385,7 +385,7 @@
       "source_file": "api/index.py",
       "source_location": "L209",
       "id": "index_list_documents",
-      "community": 9
+      "community": 6
     },
     {
       "label": "get_document()",
