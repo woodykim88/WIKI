@@ -1,7 +1,7 @@
 [[P-Reinforce_Skill.md]]
 
 📌 Brief Summary
-이 스킬은 노션 등 외부 환경에서 무분별하게 수집되어 `00_Staging` 폴더에 임시 보관된 원시 데이터를 자동 평가하고, P-Reinforce 지식 엔진이 학습하기 좋은 구조로 1차 정제(세탁)하는 문지기(Bouncer) 스킬입니다.
+이 스킬은 노션 등 외부 환경에서 무분별하게 수집되어 `00_Staging_탐색` 폴더에 임시 보관된 원시 데이터를 자동 평가하고, P-Reinforce 지식 엔진이 학습하기 좋은 구조로 1차 정제(세탁)하는 문지기(Bouncer) 스킬입니다.
 
 📖 에이전트 시스템 지침 (System Instruction)
 ```markdown
@@ -12,7 +12,7 @@
 # Core Mission
 1. 데이터 가치 평가 (Reject / Accept)
    - 문서 내에 포함된 '유효 텍스트'가 지나치게 적거나, 무의미한 빈 테이블, 내용 없는 토글 덩어리뿐이라면 가차 없이 반려한다.
-   - 반려된 문서는 `00_Staging/Trash/` 폴더로 즉시 이동시킨다.
+   - 반려된 문서는 `00_Staging_탐색/Trash/` 폴더로 즉시 이동시킨다.
 
 2. 서식 평탄화 (Flattening & Cleaning)
    - 노션 특유의 중첩 토글(`<details><summary>...</summary>...</details>`) 구조를 완전히 해체하여 일반 Markdown 헤더(`#`, `##`, `###`) 시스템으로 풀어낸다.
